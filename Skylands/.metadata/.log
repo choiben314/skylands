@@ -1,0 +1,77 @@
+!SESSION 2016-03-30 13:42:46.391 -----------------------------------------------
+eclipse.buildId=4.4.2.M20150204-1700
+java.version=1.8.0_51
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -keyring /Users/lhscompsci/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.cpp.product -keyring /Users/lhscompsci/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2016-03-30 13:43:07.267
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.mylyn.tasks.index.core 4 0 2016-03-30 13:43:52.383
+!MESSAGE Failed to update task list index
+!STACK 1
+org.eclipse.core.runtime.CoreException: Unexpected exception: Lock obtain timed out: NativeFSLock@/Volumes/yog2018-4/18li20/skylands/Skylands/.metadata/.mylyn/.taskListIndex/write.lock: java.io.IOException: Operation not supported
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.maintainIndex(TaskListIndex.java:1098)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.access$0(TaskListIndex.java:1065)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex$MaintainIndexJob.run(TaskListIndex.java:171)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: org.apache.lucene.store.LockObtainFailedException: Lock obtain timed out: NativeFSLock@/Volumes/yog2018-4/18li20/skylands/Skylands/.metadata/.mylyn/.taskListIndex/write.lock: java.io.IOException: Operation not supported
+	at org.apache.lucene.store.Lock.obtain(Lock.java:84)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1108)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:936)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.createIndexWriter(TaskListIndex.java:1267)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.rebuildIndexCompletely(TaskListIndex.java:1216)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.maintainIndex(TaskListIndex.java:1084)
+	... 3 more
+Caused by: java.io.IOException: Operation not supported
+	at sun.nio.ch.FileDispatcherImpl.lock0(Native Method)
+	at sun.nio.ch.FileDispatcherImpl.lock(FileDispatcherImpl.java:90)
+	at sun.nio.ch.FileChannelImpl.tryLock(FileChannelImpl.java:1082)
+	at java.nio.channels.FileChannel.tryLock(FileChannel.java:1155)
+	at org.apache.lucene.store.NativeFSLock.obtain(NativeFSLockFactory.java:216)
+	at org.apache.lucene.store.Lock.obtain(Lock.java:95)
+	... 8 more
+!SUBENTRY 1 org.eclipse.mylyn.tasks.index.core 4 0 2016-03-30 13:43:52.384
+!MESSAGE Unexpected exception: Lock obtain timed out: NativeFSLock@/Volumes/yog2018-4/18li20/skylands/Skylands/.metadata/.mylyn/.taskListIndex/write.lock: java.io.IOException: Operation not supported
+!STACK 0
+org.apache.lucene.store.LockObtainFailedException: Lock obtain timed out: NativeFSLock@/Volumes/yog2018-4/18li20/skylands/Skylands/.metadata/.mylyn/.taskListIndex/write.lock: java.io.IOException: Operation not supported
+	at org.apache.lucene.store.Lock.obtain(Lock.java:84)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1108)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:936)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.createIndexWriter(TaskListIndex.java:1267)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.rebuildIndexCompletely(TaskListIndex.java:1216)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.maintainIndex(TaskListIndex.java:1084)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.access$0(TaskListIndex.java:1065)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex$MaintainIndexJob.run(TaskListIndex.java:171)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.io.IOException: Operation not supported
+	at sun.nio.ch.FileDispatcherImpl.lock0(Native Method)
+	at sun.nio.ch.FileDispatcherImpl.lock(FileDispatcherImpl.java:90)
+	at sun.nio.ch.FileChannelImpl.tryLock(FileChannelImpl.java:1082)
+	at java.nio.channels.FileChannel.tryLock(FileChannel.java:1155)
+	at org.apache.lucene.store.NativeFSLock.obtain(NativeFSLockFactory.java:216)
+	at org.apache.lucene.store.Lock.obtain(Lock.java:95)
+	... 8 more
+!SUBENTRY 1 org.eclipse.mylyn.tasks.index.core 4 0 2016-03-30 13:43:52.385
+!MESSAGE Unexpected exception: Lock obtain timed out: NativeFSLock@/Volumes/yog2018-4/18li20/skylands/Skylands/.metadata/.mylyn/.taskListIndex/write.lock: java.io.IOException: Operation not supported
+!STACK 0
+org.apache.lucene.store.LockObtainFailedException: Lock obtain timed out: NativeFSLock@/Volumes/yog2018-4/18li20/skylands/Skylands/.metadata/.mylyn/.taskListIndex/write.lock: java.io.IOException: Operation not supported
+	at org.apache.lucene.store.Lock.obtain(Lock.java:84)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1108)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:936)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.createIndexWriter(TaskListIndex.java:1267)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.rebuildIndexCompletely(TaskListIndex.java:1216)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.maintainIndex(TaskListIndex.java:1084)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.access$0(TaskListIndex.java:1065)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex$MaintainIndexJob.run(TaskListIndex.java:171)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.io.IOException: Operation not supported
+	at sun.nio.ch.FileDispatcherImpl.lock0(Native Method)
+	at sun.nio.ch.FileDispatcherImpl.lock(FileDispatcherImpl.java:90)
+	at sun.nio.ch.FileChannelImpl.tryLock(FileChannelImpl.java:1082)
+	at java.nio.channels.FileChannel.tryLock(FileChannel.java:1155)
+	at org.apache.lucene.store.NativeFSLock.obtain(NativeFSLockFactory.java:216)
+	at org.apache.lucene.store.Lock.obtain(Lock.java:95)
+	... 8 more
