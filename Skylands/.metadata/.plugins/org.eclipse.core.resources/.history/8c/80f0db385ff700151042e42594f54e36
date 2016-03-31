@@ -1,0 +1,12 @@
+
+public class Building extends Sprite {
+	
+	
+	public Building(int x, int y, String imageName) {
+		super(x, y, imageName);
+	}
+	
+	public void drawBuilding(int x, int y) {
+		
+	}
+}

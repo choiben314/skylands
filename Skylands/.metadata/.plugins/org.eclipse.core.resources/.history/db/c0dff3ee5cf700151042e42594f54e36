@@ -1,0 +1,8 @@
+
+public class Island extends Sprite {
+	
+	
+	public Island(int _x, int _y, String imageName) {
+		
+	}
+}

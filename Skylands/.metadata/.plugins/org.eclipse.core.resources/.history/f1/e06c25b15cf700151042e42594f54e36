@@ -1,0 +1,4 @@
+
+public class PlayerIslandManager {
+	private Island playerIs;
+}

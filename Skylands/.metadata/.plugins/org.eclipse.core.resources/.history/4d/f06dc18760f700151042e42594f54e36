@@ -1,0 +1,22 @@
+
+public class Island extends Sprite {
+	private int health;
+	
+	public Island(int x, int y, String imageName) {
+		super(x, y, imageName);
+		health = 1000;
+	}
+	
+	public void drawIsland(int x, int y) {
+		
+	}
+	
+	//affects the main body thing
+	public void takeDamage(int dmg) {
+		health -= dmg;
+	}
+	
+	public void checkDead() {
+		
+	}
+}

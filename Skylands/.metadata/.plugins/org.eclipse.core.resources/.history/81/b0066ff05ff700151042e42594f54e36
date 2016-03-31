@@ -1,0 +1,16 @@
+
+public class Island extends Sprite {
+	
+	
+	public Island(int x, int y, String imageName) {
+		super(x, y, imageName);
+	}
+	
+	public void drawIsland(int x, int y) {
+		
+	}
+	
+	public void takeDamage() {
+		
+	}
+}

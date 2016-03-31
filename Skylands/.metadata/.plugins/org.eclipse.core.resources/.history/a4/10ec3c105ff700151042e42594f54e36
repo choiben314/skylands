@@ -1,0 +1,6 @@
+
+public class Building extends Sprite {
+	
+	
+	public Building(int x, int y, int ix, int iy, String image)
+}

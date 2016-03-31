@@ -1,0 +1,17 @@
+
+public class Building extends Sprite {
+	private int health;
+	
+	public Building(int x, int y, String imageName) {
+		super(x, y, imageName);
+		health = 100;
+	}
+	
+	public void drawBuilding(int x, int y) {
+		//will draw in x, y
+	}
+	
+	public void takeDamage(int dmg) {
+		health -= dmg;
+	}
+}
