@@ -1,0 +1,10 @@
+
+//this class refers to an extension of Building which
+//is just a normal building that produces resources (hopefully)
+public class ResourceProducer extends Building {
+
+	
+	public ResourceProducer(int x, int y, String imageName) {
+		super(x, y, imageName);
+	}
+}

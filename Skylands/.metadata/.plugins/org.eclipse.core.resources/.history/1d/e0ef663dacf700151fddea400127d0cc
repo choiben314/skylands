@@ -1,0 +1,7 @@
+
+public class IslandBody extends Sprite{
+	
+	public IslandBody(int x, int y, String imageName) {
+		super(x, y, imageName);
+	}
+}

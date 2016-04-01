@@ -1,0 +1,17 @@
+
+//this class refers to an extension of Building which
+//is just a normal building that produces resources (hopefully)
+public class ResourceProducer extends Building {
+	/*
+	 * Can add variables for what it produces, how
+	 * much it produces, and how often it produces
+	 */
+	
+	public ResourceProducer(int x, int y, String imageName) {
+		super(x, y, imageName);
+	}
+	
+	public void drawBuilding(int x, int y) {
+		
+	}
+}

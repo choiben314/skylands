@@ -1,0 +1,27 @@
+import java.util.ArrayList;
+
+public class Island {
+	private IslandBody body;
+	private ArrayList<Building> buildings;
+	
+	public Island(int x, int y, String imageName) {
+		body = new IslandBody(x, y, imageName);
+		buildings = new ArrayList<Building>();
+	}
+	
+	public void drawIsland(int x, int y) {
+		
+	}
+	
+	public void checkDead() {
+		
+	}
+	
+	public void addBuilding(Building b) {
+		buildings.add(b);
+	}
+	
+	public void removeBuilding(Building b) {
+		buildings.remove(b);
+	}
+}

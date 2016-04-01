@@ -1,5 +1,13 @@
 
-public class Building extends Sprite {
+
+/*
+ * Building acts to encapsulate(?) the legit 
+ * resource producing buildings and guns
+ * and provides a way to place buildings/guns
+ * without rewriting the code... It'll make
+ * sense hopefully maybe.
+ */
+public abstract class Building extends Sprite {
 	//health will be displayed as number above building
 	private int health;
 	
@@ -8,14 +16,23 @@ public class Building extends Sprite {
 		health = 100;
 	}
 	
-	public void drawBuilding(int x, int y) {
-		//will draw in x, y
-		//also need to draw how much health it has
-	}
+	/* Will draw in x, y
+	 * 
+	 * Also need to draw how much health it has
+	 * 
+	 * Is abstract because a gun consists of two parts,
+	 * so drawing a gun is different from drawing a building,
+	 * which is just one chunk
+	 */
+	public abstract void drawBuilding(int x, int y);
 	
 	//may do according to bullet speed
 	public void takeDamage(int dmg) {
 		health -= dmg;
+	}
+	
+	public int getHealth() {
+		return health;
 	}
 	
 	//Island 
