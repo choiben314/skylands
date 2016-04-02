@@ -1,7 +1,0 @@
-
-public class IslandBody extends Sprite{
-	
-	public IslandBody() {
-		
-	}
-}

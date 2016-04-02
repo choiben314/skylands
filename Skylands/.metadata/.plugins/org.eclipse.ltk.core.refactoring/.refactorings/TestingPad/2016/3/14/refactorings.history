@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move 3 elements to &apos;Game Of Life (For Reference)/src&apos;&#x0A;- Original project: &apos;TestingPad&apos;&#x0A;- Destination element: &apos;Game Of Life (For Reference)/src&apos;&#x0A;- Original elements:&#x0A;     Board.java&#x0A;     GameOfLifeMain.java&#x0A;     Cell.java&#x0A;- Update references to refactored element" description="Move compilation units" destination="=Game Of Life \(For Reference)/src" element1="/src&lt;{Board.java" element2="/src&lt;{GameOfLifeMain.java" element3="/src&lt;{Cell.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1459360928933" units="3" version="1.0"/>
-</session>

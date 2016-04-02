@@ -1,7 +1,0 @@
-
-public class PlayerIslandManager {
-	private static String playerFile = "player.txt";
-	private Island playerIsland;
-	
-	public void loadIsland()
-}
