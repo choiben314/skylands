@@ -15,6 +15,8 @@ import javax.swing.Timer;
 public class Board extends JPanel implements ActionListener, KeyListener,
 		MouseListener, MouseMotionListener {
 	private static Board BOARD;
+	private static int SCENE; //Scene 0 is the game, Scene 1 is a start screen
+	
 	private Timer timer;
 	private Color turquoise;
 	private PlayerIslandManager playerIslandManager;
@@ -26,6 +28,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		 * Variable declarations here
 		 */
 		BOARD = this;
+		SCENE = 0;
+		
 		timer = new Timer(1000, this);
 		timer.start();
 		turquoise = new Color(0, 255, 255);

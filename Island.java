@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/*
+ * Island has two parts: body and buildings.
+ */
 public class Island {
 	private IslandBody body;
 	private ArrayList<Building> buildings;
