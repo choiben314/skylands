@@ -1,3 +1,5 @@
+import java.awt.Graphics;
+
 
 /*
  * This is a building that's actually a gun.
@@ -12,7 +14,7 @@ public class Gun extends Building {
 	}
 
 	@Override
-	public void drawBuilding(int x, int y) {
-		// draw at those coords
+	public void drawBuilding(Graphics g) {
+		g.drawImage(getImage(), getX(), getY(), null);
 	}
 }

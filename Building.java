@@ -1,3 +1,5 @@
+import java.awt.Graphics;
+
 
 
 /*
@@ -16,15 +18,13 @@ public abstract class Building extends Sprite {
 		health = 100;
 	}
 	
-	/* Will draw in x, y
-	 * 
-	 * Also need to draw how much health it has
+	/* Also need to draw how much health it has
 	 * 
 	 * Is abstract because a gun consists of two parts,
 	 * so drawing a gun is different from drawing a building,
 	 * which is just one chunk
 	 */
-	public abstract void drawBuilding(int x, int y);
+	public abstract void drawBuilding(Graphics g);
 	
 	//may do according to bullet speed
 	public void takeDamage(int dmg) {

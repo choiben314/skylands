@@ -1,3 +1,5 @@
+import java.awt.Graphics;
+
 
 /* This class refers to an extension of Building which
  * is just a normal building that produces resources (hopefully)
@@ -13,7 +15,7 @@ public class ResourceProducer extends Building {
 	}
 	
 	@Override
-	public void drawBuilding(int x, int y) {
+	public void drawBuilding(Graphics g) {
 		//code to draw building at those coords
 	}
 }
