@@ -1,15 +1,17 @@
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class Sprite {
+public class Sprite implements Serializable {
+	private static final long serialVersionUID = -5316908334124456474L;
 	private int x;
 	private int y;
 	private int width;
 	private int height;
-	private Image image;
+	private ImageIcon imageIcon;
 	private Rectangle rect;
 	
 	public Sprite(int _x, int _y, String imageName) {
@@ -21,17 +23,17 @@ public class Sprite {
 	}
 	
 	public void loadImage(String imageName) {
-		ImageIcon ii = new ImageIcon(imageName);
-		image = ii.getImage();
+		imageIcon = new ImageIcon(imageName);
+		System.out.println(imageIcon.getImageLoadStatus());
 	}
 	
 	public void getImageDimensions() {
-		width = image.getWidth(null);
-		height = image.getHeight(null);
+		width = imageIcon.getImage().getWidth(null);
+		height = imageIcon.getImage().getHeight(null);
 	}
 	
-	public Image getImage() {return image;}
-	public void setImage(Image img) {image = img;}
+	public Image getImage() {return imageIcon.getImage();}
+	public void setImageIcon(ImageIcon ii) {imageIcon = ii;}
 	
 	public int getX() {return x;}
 	public void setX(int _x) {x = _x;}

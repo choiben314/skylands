@@ -1,6 +1,5 @@
 import java.awt.Graphics;
-
-
+import java.io.Serializable;
 
 /*
  * Building acts to encapsulate(?) the legit 
@@ -9,7 +8,8 @@ import java.awt.Graphics;
  * without rewriting the code... It'll make
  * sense hopefully maybe.
  */
-public abstract class Building extends Sprite {
+public abstract class Building extends Sprite implements Serializable {
+	private static final long serialVersionUID = 1L;
 	//health will be displayed as number above building
 	private int health;
 	
@@ -25,6 +25,7 @@ public abstract class Building extends Sprite {
 	 * which is just one chunk
 	 */
 	public abstract void drawBuilding(Graphics g);
+	public abstract String toString();
 	
 	//may do according to bullet speed
 	public void takeDamage(int dmg) {
