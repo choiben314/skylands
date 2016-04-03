@@ -11,7 +11,7 @@ public class PlayerIslandManager {
 	private Island playerIsland;
 	
 	public PlayerIslandManager() {
-		playerIsland = new Island(30, 30, "Missile.png");
+		playerIsland = new Island(30, 30, ImagePaths.MISSILE);
 	}
 	
 	public Island getIsland() {return playerIsland;}

@@ -24,7 +24,7 @@ public class Sprite implements Serializable {
 	
 	public void loadImage(String imageName) {
 		imageIcon = new ImageIcon(imageName);
-		System.out.println(imageIcon.getImageLoadStatus());
+//		System.out.println(imageIcon.getImageLoadStatus());
 	}
 	
 	public void getImageDimensions() {

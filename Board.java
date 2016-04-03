@@ -37,41 +37,10 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		turquoise = new Color(0, 255, 255);
 		playerIslandManager = new PlayerIslandManager();
 		
-		/*
-		 * Testing code
-		 */
+//		testSaving();
+		testLoading();
 		
-//		Island pi = playerIslandManager.getIsland();
-//		ResourceProducer rp = new ResourceProducer(500, 300, "Missile.png", "steel");
-//		Gun g = new Gun(30, 30, "Missile.png", 37);
-//		Gun g1 = new Gun(50, 50, "Missile.png", 89);
-//		pi.addBuilding(rp);
-//		pi.addBuilding(g);
-//		pi.addBuilding(g1);
-//		
-//		System.out.println(pi);
-//		
-//		playerIslandManager.saveIsland();
-		
-		playerIslandManager.loadIsland();
-		Island pi = playerIslandManager.getIsland();
-		ArrayList<Building> bs = pi.getBuildings();
-		for (Building b : bs) {
-			if (b instanceof ResourceProducer) {
-				System.out.println("Produces: " + ((ResourceProducer)b).getProduces());
-			} else {
-				System.out.println("Power is: " + ((Gun)b).getPower());
-			}
-		}
-		
-		System.out.println(playerIslandManager.getIsland());
-		System.exit(0);
-		
-		/*
-		 * Testing code ends
-		 */
-		
-		gun = new Gun(30, 30, "Missile.png", 33);
+		gun = new Gun(30, 30, ImagePaths.MISSILE, 33);
 		
 		addKeyListener(new TAdapter());
 		setFocusable(true);
@@ -116,4 +85,35 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {}
 	public void mouseDragged(MouseEvent e) {}
+
+	public void testSaving() {
+		Island pi = playerIslandManager.getIsland();
+		ResourceProducer rp = new ResourceProducer(500, 300, ImagePaths.MISSILE, "steel");
+		Gun g = new Gun(30, 30, ImagePaths.MISSILE, 38);
+		Gun g1 = new Gun(50, 50, ImagePaths.MISSILE, 89);
+		pi.addBuilding(rp);
+		pi.addBuilding(g);
+		pi.addBuilding(g1);
+		
+		System.out.println(pi);
+		
+		playerIslandManager.saveIsland();
+		System.exit(0);
+	}
+	
+	public void testLoading() {
+		playerIslandManager.loadIsland();
+		Island pi = playerIslandManager.getIsland();
+		ArrayList<Building> bs = pi.getBuildings();
+		for (Building b : bs) {
+			if (b instanceof ResourceProducer) {
+				System.out.println("Produces: " + ((ResourceProducer)b).getProduces());
+			} else {
+				System.out.println("Power is: " + ((Gun)b).getPower());
+			}
+		}
+		
+		System.out.println(playerIslandManager.getIsland());
+		System.exit(0);
+	}
 }
