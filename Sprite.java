@@ -47,6 +47,12 @@ public class Sprite implements Serializable {
 	public Rectangle getRect() {return rect;}
 	
 	/*
+	 * May need to consider the case when an object is rotated...
+	 * If a bullet is flying and rotates, the collider should rotate
+	 * accordingly. Use AffineTransform :(
+	 */
+	
+	/*
 	 * Detects collision with another sprite
 	 */
 	public boolean collision(Sprite other) {
