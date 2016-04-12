@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 public abstract class Building extends Sprite implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
 	//health will be displayed as number above building
 	private int health;
 	
@@ -24,7 +25,10 @@ public abstract class Building extends Sprite implements Serializable {
 	 * so drawing a gun is different from drawing a building,
 	 * which is just one chunk
 	 */
-	public abstract void drawBuilding(Graphics g);
+	/*
+	 * bx and by are the x and y coordinates of the island body
+	 */
+	public abstract void drawBuilding(Graphics g, int bx, int by);
 	public abstract String toString();
 	
 	//may do according to bullet speed

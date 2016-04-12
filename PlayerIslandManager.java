@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,14 +9,27 @@ import java.io.ObjectOutputStream;
 public class PlayerIslandManager {
 	private static String PLAYER_ISLAND_FILE = "playerIslandData.txt";
 	private static String FOLDER = "Player";
+	
 	private Island playerIsland;
 	
 	public PlayerIslandManager() {
-		playerIsland = new Island(30, 30, ImagePaths.MISSILE);
+		playerIsland = new Island(300, 300, ImagePaths.ISLAND_BODY_1);
 	}
 	
 	public Island getIsland() {return playerIsland;}
 	public void setIsland(Island i) {playerIsland = i;}
+	
+	public void Update(Graphics g) {
+		if (Board.SCENE == 0) {
+			
+		} else if (Board.SCENE == 1) {
+			Island.LARGE = true;
+			
+		} else if (Board.SCENE == 2) {
+			Island.LARGE = false;
+			playerIsland.drawIsland(g);
+		}
+	}
 	
 	public void saveIsland() {
 		File folder = new File(FOLDER);

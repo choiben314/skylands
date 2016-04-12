@@ -21,10 +21,16 @@ public class ResourceProducer extends Building implements Serializable {
 	//this is temporary
 	public String getProduces() {return produces;}
 	public void setProduces(String _produces) {produces = _produces;}
-	
+
 	@Override
-	public void drawBuilding(Graphics g) {
-		//code to draw building at those coords
+	public void drawBuilding(Graphics g, int bx, int by) {
+		if (Island.LARGE) {
+			g.drawImage(getImage(), getX() - getWidth()/2, getY() - getHeight()/2, null);
+		} else {
+			g.drawImage(getImage(), 
+					bx + (getX() - getWidth()/2)/Island.SCALE_FACTOR, 
+					by + (getY() - getHeight()/2)/Island.SCALE_FACTOR, null);
+		}
 	}
 	
 	@Override

@@ -16,8 +16,13 @@ import javax.swing.Timer;
 public class Board extends JPanel implements ActionListener, KeyListener,
 		MouseListener, MouseMotionListener {
 	private static final long serialVersionUID = -1543062753010683501L;
-	private static Board BOARD;
-	private static int SCENE; //Scene 1 is the game, Scene 0 is a start screen
+	public static Board BOARD;
+	/*
+	 * Scene 0 = start screen
+	 * Scene 1 = game
+	 * Scene 2 = zoomed in scene of island
+	 */
+	public static int SCENE;
 	
 	private Timer timer;
 	private Color turquoise;
@@ -30,7 +35,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		 * Variable declarations here
 		 */
 		BOARD = this;
-		SCENE = 1;
+		SCENE = 2;
 		
 		timer = new Timer(1000, this);
 		timer.start();
@@ -38,7 +43,12 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		playerIslandManager = new PlayerIslandManager();
 		
 //		testSaving();
-		testLoading();
+//		testLoading();
+		
+		for (int i = 0; i < 20; i++) {
+			ResourceProducer rNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
+			playerIslandManager.getIsland().addBuilding(rNew);
+		}
 		
 		gun = new Gun(30, 30, ImagePaths.MISSILE, 33);
 		
@@ -56,8 +66,9 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public void paint(Graphics g) {
 		super.paint(g);
 		BOARD = this;
+		playerIslandManager.Update(g);
 		
-		gun.drawBuilding(g);
+//		gun.drawBuilding(g);
 	}
 
 	public void actionPerformed(ActionEvent e) {}
@@ -76,6 +87,9 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		}
 	}
 
+	/*
+	 * Remember to e.consume();
+	 */
 	public void keyReleased(KeyEvent e) {}
 	public void keyTyped(KeyEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
@@ -83,7 +97,10 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public void mouseClicked(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
-	public void mouseMoved(MouseEvent e) {}
+	public void mouseMoved(MouseEvent e) {
+		System.out.println(e.getX() + " " + e.getY());
+		e.consume();
+	}
 	public void mouseDragged(MouseEvent e) {}
 
 	public void testSaving() {

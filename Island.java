@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.awt.Graphics;
 import java.io.Serializable;
 
 /*
@@ -6,6 +7,11 @@ import java.io.Serializable;
  */
 public class Island implements Serializable {
 	private static final long serialVersionUID = -4990081285229491555L;
+	
+	public static int SCALE_FACTOR = 3;
+	public static boolean LARGE = false;
+	public static int[] FIRST_BUILDING_POS = {-399, -471};
+	
 	private IslandBody body;
 	private ArrayList<Building> buildings;
 	
@@ -17,8 +23,11 @@ public class Island implements Serializable {
 		buildings = new ArrayList<Building>();
 	}
 	
-	public void drawIsland(int x, int y) {
-		
+	public void drawIsland(Graphics g) {
+		body.drawIslandBody(g);
+		for (Building b : buildings) {
+			b.drawBuilding(g, body.getX(), body.getY());
+		}
 	}
 	
 	public boolean checkDead() {

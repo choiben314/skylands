@@ -22,7 +22,7 @@ public class Gun extends Building implements Serializable {
 	public void setPower(int _power) {power = _power;}
 	
 	@Override
-	public void drawBuilding(Graphics g) {
+	public void drawBuilding(Graphics g, int bx, int by) {
 		g.drawImage(getImage(), getX(), getY(), null);
 	}
 	

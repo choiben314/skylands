@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.io.Serializable;
 
 
@@ -8,6 +9,16 @@ public class IslandBody extends Sprite implements Serializable {
 	public IslandBody(int x, int y, String imageName) {
 		super(x, y, imageName);
 		health = 1000;
+	}
+	
+	public void drawIslandBody(Graphics g) {
+//		if (Island.LARGE) {
+//			g.drawImage(getImage(), getX(), getY(), null);
+//		} else {
+//			g.drawImage(getImage(), getX()/Island.SCALE_FACTOR, getY()/Island.SCALE_FACTOR, null);
+//		}
+		g.drawImage(getImage(), getX() - getWidth()/2, getY() - getHeight()/2, null);
+		System.out.println("Blah" + getX() + " " + getY());
 	}
 	
 	//affects the main body thing

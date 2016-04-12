@@ -24,6 +24,10 @@ public class Sprite implements Serializable {
 	
 	public void loadImage(String imageName) {
 		imageIcon = new ImageIcon(imageName);
+		/*
+		 * If -4 something is wrong
+		 * If 8 I guess things are okay
+		 */
 //		System.out.println(imageIcon.getImageLoadStatus());
 	}
 	
@@ -50,6 +54,8 @@ public class Sprite implements Serializable {
 	 * May need to consider the case when an object is rotated...
 	 * If a bullet is flying and rotates, the collider should rotate
 	 * accordingly. Use AffineTransform :(
+	 * May not need to if we just have a cannonball (then it doens't
+	 * need to rotate yay.
 	 */
 	
 	/*
