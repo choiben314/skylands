@@ -36,6 +36,7 @@ public class PlayerIslandManager {
 		folder.mkdir();
 		
 		File f = new File(FOLDER + "/" + PLAYER_ISLAND_FILE);
+		// ***BELOW MAYBE REDUNDANT***
 		if (!f.exists()) {
 			try {
 				f.createNewFile();
