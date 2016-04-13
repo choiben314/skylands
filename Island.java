@@ -35,6 +35,8 @@ public class Island implements Serializable {
 		return body.checkDead();
 	}
 	
+	public IslandBody getBody() { return body; }
+	
 	public void addBuilding(Building b) {
 		buildings.add(b);
 	}
@@ -45,6 +47,20 @@ public class Island implements Serializable {
 	
 	public void removeBuilding(Building b) {
 		buildings.remove(b);
+	}
+	
+	public void moveUp(int amt) {
+		body.setY(body.getY() - amt);
+		for (Building b : buildings) {
+			b.setY(b.getY() - amt);
+		}
+	}
+	
+	public void moveDown(int amt) {
+		body.setX(body.getX() + amt);
+		for (Building b : buildings) {
+			b.setX(b.getX() + amt);
+		}
 	}
 
 	@Override

@@ -82,7 +82,11 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 			
 		} else if (key == KeyEvent.VK_Q) {
 			System.exit(0);
-		} else if (key == KeyEvent.VK_C){
+		} else if (key == KeyEvent.VK_UP){
+			playerIslandManager.movePlayerIslandUp();
+			repaint();
+		} else if (key == KeyEvent.VK_DOWN) {
+			playerIslandManager.movePlayerIslandDown();
 			repaint();
 		}
 	}

@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 public class PlayerIslandManager {
 	private static String PLAYER_ISLAND_FILE = "playerIslandData.txt";
 	private static String FOLDER = "Player";
+	private static int VERT_MOVE_SPEED = 3;
 	
 	private Island playerIsland;
 	
@@ -23,10 +24,11 @@ public class PlayerIslandManager {
 		if (Board.SCENE == 0) {
 			
 		} else if (Board.SCENE == 1) {
-			Island.LARGE = true;
+			Island.LARGE = false;
+			playerIsland.drawIsland(g);
 			
 		} else if (Board.SCENE == 2) {
-			Island.LARGE = false;
+			Island.LARGE = true;
 			playerIsland.drawIsland(g);
 		}
 	}
@@ -65,6 +67,14 @@ public class PlayerIslandManager {
 			ex.printStackTrace();
 			System.out.println("Something went wrong.");
 		}
+	}
+	
+	public void movePlayerIslandUp() {
+		playerIsland.moveUp(VERT_MOVE_SPEED);
+	}
+	
+	public void movePlayerIslandDown() {
+		playerIsland.moveUp(-VERT_MOVE_SPEED);
 	}
 
 	@Override
