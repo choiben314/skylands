@@ -27,9 +27,12 @@ public class ResourceProducer extends Building implements Serializable {
 		if (Island.LARGE) {
 			g.drawImage(getImage(), getX() - getWidth()/2, getY() - getHeight()/2, null);
 		} else {
+//			g.drawImage(getImage(), 
+//					bx + (getX() - getWidth()/2)/Island.SCALE_FACTOR, 
+//					by + (getY() - getHeight()/2)/Island.SCALE_FACTOR, null);
 			g.drawImage(getImage(), 
-					bx + (getX() - getWidth()/2)/Island.SCALE_FACTOR, 
-					by + (getY() - getHeight()/2)/Island.SCALE_FACTOR, null);
+					bx + (getX()/Island.SCALE_FACTOR) - getWidth()/2, 
+					by + (getY()/Island.SCALE_FACTOR) - getHeight()/2, null);
 		}
 	}
 	

@@ -10,6 +10,7 @@ public class Island implements Serializable {
 	
 	public static int SCALE_FACTOR = 3;
 	public static boolean LARGE = false;
+//	public static int[] FIRST_BUILDING_POS = {-414, -486};
 	public static int[] FIRST_BUILDING_POS = {-399, -471};
 	
 	private IslandBody body;
