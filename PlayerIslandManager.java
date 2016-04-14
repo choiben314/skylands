@@ -20,13 +20,16 @@ public class PlayerIslandManager {
 	public Island getIsland() {return playerIsland;}
 	public void setIsland(Island i) {playerIsland = i;}
 	
-	public void Update(Graphics g) {
+	public void Update(Graphics g, boolean moveIsland, boolean moveUp) {
 		if (Board.SCENE == 0) {
 			
 		} else if (Board.SCENE == 1) {
 			Island.LARGE = false;
+			if (moveIsland && moveUp)
+				movePlayerIslandUp();
+			else if (moveIsland && !moveUp)
+				movePlayerIslandDown();
 			playerIsland.drawIsland(g);
-			
 		} else if (Board.SCENE == 2) {
 			Island.LARGE = true;
 			playerIsland.drawIsland(g);
@@ -70,11 +73,11 @@ public class PlayerIslandManager {
 	}
 	
 	public void movePlayerIslandUp() {
-		playerIsland.moveUp(VERT_MOVE_SPEED);
+		playerIsland.moveVert(VERT_MOVE_SPEED);
 	}
 	
 	public void movePlayerIslandDown() {
-		playerIsland.moveUp(-VERT_MOVE_SPEED);
+		playerIsland.moveVert(-VERT_MOVE_SPEED);
 	}
 
 	@Override

@@ -49,18 +49,12 @@ public class Island implements Serializable {
 		buildings.remove(b);
 	}
 	
-	public void moveUp(int amt) {
+	public void moveVert(int amt) {
 		body.setY(body.getY() - amt);
-		for (Building b : buildings) {
-			b.setY(b.getY() - amt);
-		}
 	}
 	
-	public void moveDown(int amt) {
+	public void moveHoriz(int amt) {
 		body.setX(body.getX() + amt);
-		for (Building b : buildings) {
-			b.setX(b.getX() + amt);
-		}
 	}
 
 	@Override
