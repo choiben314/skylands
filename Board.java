@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+//import java.util.Timer;
 
 /*
  * https://www.google.com/search?client=safari&rls=en&q=constantly+update+in+jpanel+java&ie=UTF-8&oe=UTF-8
@@ -44,6 +45,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		
 		timer = new Timer(1000, this);
 		timer.start();
+//		timer = new Timer();
+//		timer.schedule(new Update(), 0, 1000 / 60);
 
 		turquoise = new Color(0, 255, 255);
 		playerIslandManager = new PlayerIslandManager();
@@ -69,11 +72,17 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	}
+	
+	/*
+	 * This is the game loop (like Update() in Unity)
+	 */
+	public void Update() {
+		repaint();
+	}
 
 	public void paint(Graphics g) {
 		super.paint(g);
 		BOARD = this;
-		System.out.println(moveIsland + " " + moveUp);
 		playerIslandManager.Update(g, moveIsland, moveUp);
 		
 //		gun.drawBuilding(g);
@@ -94,15 +103,11 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 			
 		} else if (SCENE == 1) {
 			if (key == KeyEvent.VK_W){
-//				playerIslandManager.movePlayerIslandUp();
 				moveIsland = true;
 				moveUp = true;
-				repaint();
 			} else if (key == KeyEvent.VK_S) {
 				moveIsland = true;
 				moveUp = false;
-//				playerIslandManager.movePlayerIslandDown();
-				repaint();
 			}
 		} else if (SCENE == 2) {
 			
@@ -121,10 +126,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		} else if (SCENE == 1) {
 			if (key == KeyEvent.VK_W){
 				moveIsland = false;
-				repaint();
 			} else if (key == KeyEvent.VK_S) {
 				moveIsland = false;
-				repaint();
 			}
 		} else if (SCENE == 2) {
 			
