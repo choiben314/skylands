@@ -16,6 +16,9 @@ import javax.swing.Timer;
 public class Board extends JPanel implements ActionListener, KeyListener,
 		MouseListener, MouseMotionListener {
 	private static final long serialVersionUID = -1543062753010683501L;
+	public static final int FRAME_WIDTH = 1000;
+	public static final int FRAME_HEIGHT = 600;
+	
 	public static Board BOARD;
 	/*
 	 * Scene 0 = start screen

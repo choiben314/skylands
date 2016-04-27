@@ -27,13 +27,16 @@ public class Island implements Serializable {
 	public void drawIsland(Graphics g) {
 		body.drawIslandBody(g);
 		for (Building b : buildings) {
-			b.drawBuilding(g, body.getX(), body.getY());
+		b.setY(body.getY());
+			b.drawBuilding(g, b.getX(), b.getY());
 		}
 	}
 	
 	public boolean checkDead() {
 		return body.checkDead();
 	}
+	
+	public IslandBody getBody() { return body; }
 	
 	public void addBuilding(Building b) {
 		buildings.add(b);

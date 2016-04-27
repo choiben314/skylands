@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,32 +10,38 @@ import java.io.ObjectOutputStream;
 public class PlayerIslandManager {
 	private static String PLAYER_ISLAND_FILE = "playerIslandData.txt";
 	private static String FOLDER = "Player";
-	
+
 	private Island playerIsland;
-	
+
 	public PlayerIslandManager() {
 		playerIsland = new Island(300, 300, ImagePaths.ISLAND_BODY_1);
 	}
-	
-	public Island getIsland() {return playerIsland;}
-	public void setIsland(Island i) {playerIsland = i;}
-	
+
+	public Island getIsland() {
+		return playerIsland;
+	}
+
+	public void setIsland(Island i) {
+		playerIsland = i;
+	}
+
 	public void Update(Graphics g) {
 		if (Board.SCENE == 0) {
-			
+			// start screen
 		} else if (Board.SCENE == 1) {
-			Island.LARGE = true;
-			
-		} else if (Board.SCENE == 2) {
 			Island.LARGE = false;
+			playerIsland.drawIsland(g);
+
+		} else if (Board.SCENE == 2) {
+			Island.LARGE = true;
 			playerIsland.drawIsland(g);
 		}
 	}
-	
+
 	public void saveIsland() {
 		File folder = new File(FOLDER);
 		folder.mkdir();
-		
+
 		File f = new File(FOLDER + "/" + PLAYER_ISLAND_FILE);
 		// ***BELOW MAYBE REDUNDANT***
 		if (!f.exists()) {
@@ -43,7 +50,7 @@ public class PlayerIslandManager {
 			} catch (IOException e) {
 				System.out.println("Failed to create new player save file.");
 			}
-		} 
+		}
 		try {
 			FileOutputStream fout = new FileOutputStream(f);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
@@ -54,12 +61,13 @@ public class PlayerIslandManager {
 			System.out.println("Failed to write player island to file.");
 		}
 	}
-	
+
 	public void loadIsland() {
 		try {
-			FileInputStream fin = new FileInputStream(FOLDER + "/" + PLAYER_ISLAND_FILE);
+			FileInputStream fin = new FileInputStream(FOLDER + "/"
+					+ PLAYER_ISLAND_FILE);
 			ObjectInputStream ois = new ObjectInputStream(fin);
-			playerIsland = (Island)ois.readObject();
+			playerIsland = (Island) ois.readObject();
 			ois.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
