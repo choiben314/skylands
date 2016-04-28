@@ -12,7 +12,11 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+//import java.util.Timer;
 
+/*
+ * https://www.google.com/search?client=safari&rls=en&q=constantly+update+in+jpanel+java&ie=UTF-8&oe=UTF-8
+ */
 public class Board extends JPanel implements ActionListener, KeyListener,
 		MouseListener, MouseMotionListener {
 	private static final long serialVersionUID = -1543062753010683501L;
@@ -31,6 +35,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	private Color turquoise;
 	private PlayerIslandManager playerIslandManager;
 	
+	private boolean moveIsland;
+	private boolean moveUp;
 	Gun gun;
 
 	public Board() {
@@ -42,6 +48,9 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		
 		timer = new Timer(1000, this);
 		timer.start();
+//		timer = new Timer();
+//		timer.schedule(new Update(), 0, 1000 / 60);
+
 		turquoise = new Color(0, 255, 255);
 		playerIslandManager = new PlayerIslandManager();
 		
@@ -53,6 +62,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 			playerIslandManager.getIsland().addBuilding(rNew);
 		}
 		
+		moveIsland = false;
+		moveUp = false;
 		gun = new Gun(30, 30, ImagePaths.MISSILE, 33);
 		
 		addKeyListener(new TAdapter());
@@ -63,13 +74,19 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		addKeyListener(this);
 		addMouseListener(this);
 		addMouseMotionListener(this);
-
+	}
+	
+	/*
+	 * This is the game loop (like Update() in Unity)
+	 */
+	public void Update() {
+		repaint();
 	}
 
 	public void paint(Graphics g) {
 		super.paint(g);
 		BOARD = this;
-		playerIslandManager.Update(g);
+		playerIslandManager.Update(g, moveIsland, moveUp);
 		
 //		gun.drawBuilding(g);
 	}
@@ -81,19 +98,45 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		
-		if (key == KeyEvent.VK_SPACE) {
-			
-		} else if (key == KeyEvent.VK_Q) {
+		if (key == KeyEvent.VK_Q) {
 			System.exit(0);
-		} else if (key == KeyEvent.VK_C){
-			repaint();
 		}
+		
+		if (SCENE == 0) {
+			
+		} else if (SCENE == 1) {
+			if (key == KeyEvent.VK_W){
+				moveIsland = true;
+				moveUp = true;
+			} else if (key == KeyEvent.VK_S) {
+				moveIsland = true;
+				moveUp = false;
+			}
+		} else if (SCENE == 2) {
+			
+		}	
+		e.consume();
 	}
 
 	/*
 	 * Remember to e.consume();
 	 */
-	public void keyReleased(KeyEvent e) {}
+	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+		
+		if (SCENE == 0) {
+			
+		} else if (SCENE == 1) {
+			if (key == KeyEvent.VK_W){
+				moveIsland = false;
+			} else if (key == KeyEvent.VK_S) {
+				moveIsland = false;
+			}
+		} else if (SCENE == 2) {
+			
+		}
+		e.consume();
+	}
 	public void keyTyped(KeyEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}

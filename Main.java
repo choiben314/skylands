@@ -3,19 +3,20 @@ import javax.swing.JFrame;
 public class Main extends JFrame {
 	private static final long serialVersionUID = 4648172894076113183L;
 
-	public Main() {
+	public static void main(String[] args) throws InterruptedException {
+		// new Main();
 
-		add(new Board());
+		JFrame frame = new JFrame("Skylands");
+		Board board = new Board();
+		frame.add(board);
+		frame.setSize(Board.FRAME_WIDTH, Board.FRAME_HEIGHT);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(Board.FRAME_WIDTH, Board.FRAME_HEIGHT);
-		setLocationRelativeTo(null);
-		setTitle("Skylands");
-		setResizable(false);
-		setVisible(true);
-	}
+		while (true) {
+			board.Update();
+			Thread.sleep(10);
+		}
 
-	public static void main(String[] args) {
-		new Main();
 	}
 }

@@ -11,25 +11,30 @@ public class PlayerIslandManager {
 	private static String PLAYER_ISLAND_FILE = "playerIslandData.txt";
 	private static String FOLDER = "Player";
 
+	private static int VERT_MOVE_SPEED = 3;
+	
+
 	private Island playerIsland;
 
 	public PlayerIslandManager() {
 		playerIsland = new Island(300, 300, ImagePaths.ISLAND_BODY_1);
 	}
-
-	public Island getIsland() {
-		return playerIsland;
-	}
-
-	public void setIsland(Island i) {
-		playerIsland = i;
-	}
-
-	public void Update(Graphics g) {
+	
+	public Island getIsland() {return playerIsland;}
+	public void setIsland(Island i) {playerIsland = i;}
+	
+	public void Update(Graphics g, boolean moveIsland, boolean moveUp) {
 		if (Board.SCENE == 0) {
 			// start screen
 		} else if (Board.SCENE == 1) {
 			Island.LARGE = false;
+			if (moveIsland && moveUp)
+				movePlayerIslandUp();
+			else if (moveIsland && !moveUp)
+				movePlayerIslandDown();
+			playerIsland.drawIsland(g);
+		} else if (Board.SCENE == 2) {
+			Island.LARGE = true;
 			playerIsland.drawIsland(g);
 
 		} else if (Board.SCENE == 2) {
@@ -73,6 +78,14 @@ public class PlayerIslandManager {
 			ex.printStackTrace();
 			System.out.println("Something went wrong.");
 		}
+	}
+	
+	public void movePlayerIslandUp() {
+		playerIsland.moveVert(VERT_MOVE_SPEED);
+	}
+	
+	public void movePlayerIslandDown() {
+		playerIsland.moveVert(-VERT_MOVE_SPEED);
 	}
 
 	@Override

@@ -9,7 +9,7 @@ public class Island implements Serializable {
 	private static final long serialVersionUID = -4990081285229491555L;
 	
 	public static int SCALE_FACTOR = 3;
-	public static boolean LARGE = false;
+	public static boolean LARGE = true;
 //	public static int[] FIRST_BUILDING_POS = {-414, -486};
 	public static int[] FIRST_BUILDING_POS = {-399, -471};
 	
@@ -26,9 +26,9 @@ public class Island implements Serializable {
 	
 	public void drawIsland(Graphics g) {
 		body.drawIslandBody(g);
+		System.out.println(body.getY());
 		for (Building b : buildings) {
-		b.setY(body.getY());
-			b.drawBuilding(g, b.getX(), b.getY());
+			b.drawBuilding(g, body.getX(), body.getY());
 		}
 	}
 	
@@ -48,6 +48,14 @@ public class Island implements Serializable {
 	
 	public void removeBuilding(Building b) {
 		buildings.remove(b);
+	}
+	
+	public void moveVert(int amt) {
+		body.setY(body.getY() - amt);
+	}
+	
+	public void moveHoriz(int amt) {
+		body.setX(body.getX() + amt);
 	}
 
 	@Override

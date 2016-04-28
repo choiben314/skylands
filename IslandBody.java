@@ -14,13 +14,15 @@ public class IslandBody extends Sprite implements Serializable {
 	public void drawIslandBody(Graphics g) {
 		if (Island.LARGE) {
 			setX(Board.FRAME_WIDTH / 2);
-			setY(Board.FRAME_HEIGHT);
-			
+
+			setY((Board.FRAME_HEIGHT / 2) + (getHeight() * Island.SCALE_FACTOR / 2));
+
 			// draws from center.
-			g.drawImage(getImage(), getX() - (getWidth() * Island.SCALE_FACTOR / 2), (getY() / 2), getWidth()
+			g.drawImage(getImage(), getX()
+					- (getWidth() * Island.SCALE_FACTOR / 2), getY()
+					- (getHeight() * Island.SCALE_FACTOR / 2), getWidth()
 					* Island.SCALE_FACTOR, getHeight() * Island.SCALE_FACTOR,
 					null);
-			
 		} else {
 			g.drawImage(getImage(), getX() - getWidth() / 2, getY()
 					- getHeight() / 2, null);

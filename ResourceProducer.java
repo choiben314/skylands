@@ -27,13 +27,14 @@ public class ResourceProducer extends Building implements Serializable {
 		produces = _produces;
 	}
 
-	// bx and by are center coordinates of building
+
 	@Override
 	public void drawBuilding(Graphics g, int bx, int by) {
 		if (Island.LARGE) {
-			System.out.println(by);
-			g.drawImage(getImage(), bx - (getWidth() * Island.SCALE_FACTOR / 2), 300, getWidth() * Island.SCALE_FACTOR,
-					getHeight() * Island.SCALE_FACTOR, null);
+			g.drawImage(getImage(),
+					bx + getX() - (getWidth() * Island.SCALE_FACTOR / 2), by + Island.FIRST_BUILDING_POS[1] - (getHeight() * Island.SCALE_FACTOR / 2),
+					getWidth() * Island.SCALE_FACTOR, getHeight()
+							* Island.SCALE_FACTOR, null);
 		} else {
 			g.drawImage(getImage(), bx + (getX() / Island.SCALE_FACTOR)
 					- getWidth() / 2, by + (getY() / Island.SCALE_FACTOR)
