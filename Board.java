@@ -27,6 +27,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	 * Scene 2 = zoomed in scene of island
 	 */
 	public static int SCENE;
+	public static double[] MOUSE_COORDS;
 	
 	private Timer timer;
 	private Color turquoise;
@@ -42,6 +43,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		 */
 		BOARD = this;
 		SCENE = 1;
+		MOUSE_COORDS = new double[] {0.0, 0.0};
 		
 		timer = new Timer(1000, this);
 		timer.start();
