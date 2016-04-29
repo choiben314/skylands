@@ -4,6 +4,11 @@
  */
 public class ImagePaths {
 	public static final String MISSILE = "Images/Missile.png";
+	
 	public static final String ISLAND_BODY_1 = "Images/Island/ProtoIslandBody.png";
 	public static final String BUILDING_TEST = "Images/Island/ProtoBuilding.png";
+	
+	public static final String GUN1_14x14_BASE = "Gun1_14x14_Base.png";
+	public static final String GUN1_14x14_SHAFT = "Gun1_14x14_Shaft.png";
+	public static final String GUN1_42x42 = "Gun1_42x42.png";
 }

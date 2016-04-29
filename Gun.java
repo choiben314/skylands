@@ -23,7 +23,16 @@ public class Gun extends Building implements Serializable {
 	
 	@Override
 	public void drawBuilding(Graphics g, int bx, int by) {
-		g.drawImage(getImage(), getX(), getY(), null);
+		if (Island.LARGE) {
+			g.drawImage(getImage(),
+					bx + getX() - (getWidth() * Island.SCALE_FACTOR / 2), by + Island.FIRST_BUILDING_POS[1] - (getHeight() * Island.SCALE_FACTOR / 2),
+					getWidth() * Island.SCALE_FACTOR, getHeight()
+							* Island.SCALE_FACTOR, null);
+		} else {
+			int newX = bx + (getX() / Island.SCALE_FACTOR) - getWidth() / 2;
+			int newY = by + (getY() / Island.SCALE_FACTOR) - getHeight() / 2;
+			g.drawImage(getImage(), newX, newY, null);
+		}
 	}
 	
 	@Override

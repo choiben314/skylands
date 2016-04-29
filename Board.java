@@ -147,6 +147,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {
 		System.out.println(e.getX() + " " + e.getY());
+		MOUSE_COORDS = new double[] {e.getX(), e.getY()};
 		e.consume();
 	}
 	public void mouseDragged(MouseEvent e) {}
