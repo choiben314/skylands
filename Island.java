@@ -26,7 +26,6 @@ public class Island implements Serializable {
 	
 	public void drawIsland(Graphics g) {
 		body.drawIslandBody(g);
-		System.out.println(body.getY());
 		for (Building b : buildings) {
 			b.drawBuilding(g, body.getX(), body.getY());
 		}
