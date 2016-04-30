@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+//import java.util.Timer;
 
 /*
  * https://www.google.com/search?client=safari&rls=en&q=constantly+update+in+jpanel+java&ie=UTF-8&oe=UTF-8
@@ -19,6 +20,9 @@ import javax.swing.Timer;
 public class Board extends JPanel implements ActionListener, KeyListener,
 		MouseListener, MouseMotionListener {
 	private static final long serialVersionUID = -1543062753010683501L;
+	public static final int FRAME_WIDTH = 1000;
+	public static final int FRAME_HEIGHT = 600;
+	
 	public static Board BOARD;
 	/*
 	 * Scene 0 = start screen
@@ -26,8 +30,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	 * Scene 2 = zoomed in scene of island
 	 */
 	public static int SCENE;
+	public static double[] MOUSE_COORDS;
 	
-	private int frameCount;
 	private Timer timer;
 	private Color turquoise;
 	private PlayerIslandManager playerIslandManager;
@@ -41,19 +45,11 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		 * Variable declarations here
 		 */
 		BOARD = this;
-		SCENE = 1;
+		SCENE = 0;
+		MOUSE_COORDS = new double[] {0.0, 0.0};
 		
-		frameCount = 0;
 		timer = new Timer(1000, this);
 		timer.start();
-		
-//		timer = new Timer(1000, new ActionListener(){
-//            public void actionPerformed(ActionEvent e) {
-//            	System.out.println("something performed");
-//                repaint();
-//            	timer.start();
-//            }
-//        });
 
 		turquoise = new Color(0, 255, 255);
 		playerIslandManager = new PlayerIslandManager();
@@ -62,8 +58,13 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 //		testLoading();
 		
 		for (int i = 0; i < 20; i++) {
-			ResourceProducer rNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
-			playerIslandManager.getIsland().addBuilding(rNew);
+			if (i == 2 || i == 5) {
+				Gun gNew = new Gun(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.GUN1_42x42, 10);
+				playerIslandManager.getIsland().addBuilding(gNew);
+			} else {
+				ResourceProducer rNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
+				playerIslandManager.getIsland().addBuilding(rNew);
+			}
 		}
 		
 		moveIsland = false;
@@ -79,21 +80,21 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	}
+	
+	/*
+	 * This is the game loop (like Update() in Unity)
+	 */
+	public void Update() {
+		repaint();
+	}
 
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		frameCount++;
-		if (frameCount > 1000) {
-			frameCount %= 1000;
-			
-			BOARD = this;
-			System.out.println("blahblahblah");
-			System.out.println(moveIsland + " " + moveUp);
-			playerIslandManager.Update(g, moveIsland, moveUp);
-			
-		}
-//		repaint();
+		BOARD = this;
+		playerIslandManager.Update(g, moveIsland, moveUp);
+		
+//		gun.drawBuilding(g);
 	}
 	
 //	@Override
@@ -116,21 +117,25 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		
 		if (key == KeyEvent.VK_Q) {
 			System.exit(0);
+		} else if (key == KeyEvent.VK_0) {
+			SCENE = 0;
+		} else if (key == KeyEvent.VK_1) {
+			playerIslandManager.getIsland().getBody().setX(200);
+			playerIslandManager.getIsland().getBody().setY(300);
+			SCENE = 1;
+		} else if (key == KeyEvent.VK_2) {
+			SCENE = 2;
 		}
 		
 		if (SCENE == 0) {
 			
 		} else if (SCENE == 1) {
 			if (key == KeyEvent.VK_W){
-//				playerIslandManager.movePlayerIslandUp();
 				moveIsland = true;
 				moveUp = true;
-				repaint();
 			} else if (key == KeyEvent.VK_S) {
 				moveIsland = true;
 				moveUp = false;
-//				playerIslandManager.movePlayerIslandDown();
-				repaint();
 			}
 		} else if (SCENE == 2) {
 			
@@ -149,10 +154,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		} else if (SCENE == 1) {
 			if (key == KeyEvent.VK_W){
 				moveIsland = false;
-				repaint();
 			} else if (key == KeyEvent.VK_S) {
 				moveIsland = false;
-				repaint();
 			}
 		} else if (SCENE == 2) {
 			
@@ -167,6 +170,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {
 		System.out.println(e.getX() + " " + e.getY());
+		MOUSE_COORDS = new double[] {e.getX(), e.getY()};
 		e.consume();
 	}
 	public void mouseDragged(MouseEvent e) {}
