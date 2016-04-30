@@ -27,6 +27,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	 */
 	public static int SCENE;
 	
+	private int frameCount;
 	private Timer timer;
 	private Color turquoise;
 	private PlayerIslandManager playerIslandManager;
@@ -42,8 +43,17 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		BOARD = this;
 		SCENE = 1;
 		
+		frameCount = 0;
 		timer = new Timer(1000, this);
 		timer.start();
+		
+//		timer = new Timer(1000, new ActionListener(){
+//            public void actionPerformed(ActionEvent e) {
+//            	System.out.println("something performed");
+//                repaint();
+//            	timer.start();
+//            }
+//        });
 
 		turquoise = new Color(0, 255, 255);
 		playerIslandManager = new PlayerIslandManager();
@@ -70,14 +80,32 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		addMouseMotionListener(this);
 	}
 
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		BOARD = this;
-		System.out.println(moveIsland + " " + moveUp);
-		playerIslandManager.Update(g, moveIsland, moveUp);
-		
-//		gun.drawBuilding(g);
+		frameCount++;
+		if (frameCount > 1000) {
+			frameCount %= 1000;
+			
+			BOARD = this;
+			System.out.println("blahblahblah");
+			System.out.println(moveIsland + " " + moveUp);
+			playerIslandManager.Update(g, moveIsland, moveUp);
+			
+		}
+//		repaint();
 	}
+	
+//	@Override
+//	public void paintComponent(Graphics g) {
+//		super.paint(g);
+//		BOARD = this;
+//		System.out.println("blahblahblah");
+//		System.out.println(moveIsland + " " + moveUp);
+//		playerIslandManager.Update(g, moveIsland, moveUp);
+//		
+////		gun.drawBuilding(g);
+//	}
 
 	public void actionPerformed(ActionEvent e) {}
 
