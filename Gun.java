@@ -38,12 +38,14 @@ public class Gun extends Building implements Serializable {
 		} else {
 			int newShaftX = bx + (shaft.getX() / Island.SCALE_FACTOR) - shaft.getWidth() / 2;
 			int newShaftY = by + (shaft.getY() / Island.SCALE_FACTOR) - shaft.getHeight() / 2;
-			double x = Board.MOUSE_COORDS[0];
-			double y = Board.MOUSE_COORDS[1];
+//			double x = Board.MOUSE_COORDS[0];
+//			double y = Board.MOUSE_COORDS[1];
+//			
+//			double dx = x - newShaftX;
+//			double dy = newShaftY - y;
+//			double radians = -Math.atan2(dy, dx) + Math.PI/2;
 			
-			double dx = x - newShaftX;
-			double dy = newShaftY - y;
-			double radians = -Math.atan2(dy, dx) + Math.PI/2;
+			double radians = Bullet.calcAngle(new double[] {newShaftX, newShaftY}, Board.MOUSE_COORDS);
 			
 			AffineTransform identity = AffineTransform.getTranslateInstance(newShaftX, newShaftY);
 			Graphics2D g2d = (Graphics2D)g;

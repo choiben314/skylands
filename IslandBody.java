@@ -1,5 +1,4 @@
 import java.awt.Graphics;
-import java.awt.Toolkit;
 import java.io.Serializable;
 
 public class IslandBody extends Sprite implements Serializable {

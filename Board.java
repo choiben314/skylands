@@ -96,17 +96,6 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		
 //		gun.drawBuilding(g);
 	}
-	
-//	@Override
-//	public void paintComponent(Graphics g) {
-//		super.paint(g);
-//		BOARD = this;
-//		System.out.println("blahblahblah");
-//		System.out.println(moveIsland + " " + moveUp);
-//		playerIslandManager.Update(g, moveIsland, moveUp);
-//		
-////		gun.drawBuilding(g);
-//	}
 
 	public void actionPerformed(ActionEvent e) {}
 
@@ -130,6 +119,10 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		if (SCENE == 0) {
 			
 		} else if (SCENE == 1) {
+			if (key == KeyEvent.VK_SPACE) {
+				playerIslandManager.setShoot(true);
+			}
+			
 			if (key == KeyEvent.VK_W){
 				moveIsland = true;
 				moveUp = true;

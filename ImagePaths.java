@@ -11,4 +11,5 @@ public class ImagePaths {
 	public static final String GUN1_14x14_BASE = "Images/Gun/Gun1_14x14_Base.png";
 	public static final String GUN1_14x14_SHAFT = "Images/Gun/Gun1_14x14_Shaft.png";
 	public static final String GUN1_42x42 = "Images/Gun/Gun1_42x42.png";
+	public static final String BULLET1 = "Images/Gun/Projectile1.png";
 }

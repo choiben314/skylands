@@ -13,9 +13,15 @@ public class Main extends JFrame {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		long oldTime = System.currentTimeMillis();
+		System.out.println(System.currentTimeMillis());
+		
 		while (true) {
-			board.Update();
-			Thread.sleep(10);
+			if (System.currentTimeMillis() - oldTime > 5) {
+				oldTime = System.currentTimeMillis();
+				board.Update();
+			}
+//			Thread.sleep(10);
 		}
 
 	}

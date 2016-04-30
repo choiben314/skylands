@@ -15,6 +15,7 @@ public class Island implements Serializable {
 	
 	private IslandBody body;
 	private ArrayList<Building> buildings;
+	private ArrayList<Bullet> bullets;
 	
 	/*
 	 * imageName is the name of the body...
@@ -22,6 +23,7 @@ public class Island implements Serializable {
 	public Island(int x, int y, String imageName) {
 		body = new IslandBody(x, y, imageName);
 		buildings = new ArrayList<Building>();
+		bullets = new ArrayList<Bullet>();
 	}
 	
 	public void drawIsland(Graphics g) {
@@ -55,6 +57,10 @@ public class Island implements Serializable {
 	
 	public void moveHoriz(int amt) {
 		body.setX(body.getX() + amt);
+	}
+	
+	public ArrayList<Bullet> getBullets() {
+		return bullets;
 	}
 
 	@Override
