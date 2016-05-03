@@ -135,12 +135,17 @@ public class Bullet extends Sprite implements Serializable {
 	 */
 	public static double calcAngle(double[] start, double[] target) {
 		double ivx, ivy;
+		/*
+		 * Might have to change t...
+		 */
 		double t = 0.0;
 		double theta;
 		double[] traj = calcTrajectory(start, target);
+		System.out.println("traj is: " + traj[0] + " " + traj[1]);
 		ivx = traj[0];
 		ivy = -GRAVITY * t * traj[1];
 		theta = Math.atan2(ivy, ivx);
+		System.out.println("Theta is: " + theta);
 		return theta;
 	}
 }
