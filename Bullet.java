@@ -134,18 +134,21 @@ public class Bullet extends Sprite implements Serializable {
 	 * This is used by Gun to see where to point the shaft.
 	 */
 	public static double calcAngle(double[] start, double[] target) {
-		double ivx, ivy;
-		/*
-		 * Might have to change t...
-		 */
-		double t = 0.0;
-		double theta;
+//		double ivx, ivy;
+//		/*
+//		 * Might have to change t...
+//		 */
+//		double t = 0.1;
+//		double theta;
+//		double[] traj = calcTrajectory(start, target);
+//		System.out.println("traj is: " + traj[0] + " " + traj[1]);
+//		ivx = traj[0];
+//		ivy = -GRAVITY * t * traj[1];
+//		theta = Math.atan2(ivy, ivx);
+//		System.out.println("Theta is: " + theta);
+//		return theta;
 		double[] traj = calcTrajectory(start, target);
-		System.out.println("traj is: " + traj[0] + " " + traj[1]);
-		ivx = traj[0];
-		ivy = -GRAVITY * t * traj[1];
-		theta = Math.atan2(ivy, ivx);
-		System.out.println("Theta is: " + theta);
+		double theta = Math.atan2(traj[1], traj[0]) - Math.PI/2;
 		return theta;
 	}
 }

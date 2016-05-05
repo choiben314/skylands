@@ -32,9 +32,13 @@ public class Gun extends Building implements Serializable {
 	@Override
 	public void drawBuilding(Graphics g, int bx, int by) {
 		if (Island.LARGE) {
-			g.drawImage(getImage(),
-					bx + getX() - (getWidth() / 2), by + Island.FIRST_BUILDING_POS[1] - (getHeight() / 2),
-					getWidth(), getHeight(), null);
+			g.drawImage(
+				getImage(),
+				bx + getX() - (getWidth() / 2), 
+				by + Island.FIRST_BUILDING_POS[1] - (getHeight() / 2),
+				getWidth(),
+				getHeight(), 
+				null);			
 		} else {
 			int newShaftX = bx + (shaft.getX() / Island.SCALE_FACTOR) - shaft.getWidth() / 2;
 			int newShaftY = by + (shaft.getY() / Island.SCALE_FACTOR) - shaft.getHeight() / 2;
@@ -54,12 +58,6 @@ public class Gun extends Building implements Serializable {
 			trans.setTransform(identity);
 			trans.rotate(radians, shaft.getWidth()/2, shaft.getHeight());
 			g2d.drawImage(shaft.getImage(), trans, null);
-			
-			
-			
-			
-			
-			
 //			g.drawImage(shaft.getImage(), newShaftX, newShaftY, null);
 			
 			int newBaseX = bx + (base.getX() / Island.SCALE_FACTOR) - base.getWidth() / 2;

@@ -30,15 +30,30 @@ public class ResourceProducer extends Building implements Serializable {
 
 	@Override
 	public void drawBuilding(Graphics g, int bx, int by) {
+//		if (Island.LARGE) {
+//			g.drawImage(getImage(),
+//					bx + getX() - (getWidth() * Island.SCALE_FACTOR / 2), by + Island.FIRST_BUILDING_POS[1] - (getHeight() * Island.SCALE_FACTOR / 2),
+//					getWidth() * Island.SCALE_FACTOR, getHeight()
+//							* Island.SCALE_FACTOR, null);
+//		} else {
+//			g.drawImage(getImage(), bx + (getX() / Island.SCALE_FACTOR)
+//					- getWidth() / 2, by + (getY() / Island.SCALE_FACTOR)
+//					- getHeight() / 2, null);
+//		}
 		if (Island.LARGE) {
-			g.drawImage(getImage(),
-					bx + getX() - (getWidth() * Island.SCALE_FACTOR / 2), by + Island.FIRST_BUILDING_POS[1] - (getHeight() * Island.SCALE_FACTOR / 2),
-					getWidth() * Island.SCALE_FACTOR, getHeight()
-							* Island.SCALE_FACTOR, null);
+			g.drawImage(
+				getImage(),
+				getGlobalX(bx), 
+				getGlobalY(by),
+				getWidth() * Island.SCALE_FACTOR, 
+				getHeight()	* Island.SCALE_FACTOR, 
+				null);
 		} else {
-			g.drawImage(getImage(), bx + (getX() / Island.SCALE_FACTOR)
-					- getWidth() / 2, by + (getY() / Island.SCALE_FACTOR)
-					- getHeight() / 2, null);
+			g.drawImage(
+				getImage(), 
+				getGlobalX(bx), 
+				getGlobalY(by), 
+				null);
 		}
 	}
 
