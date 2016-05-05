@@ -93,7 +93,13 @@ public class Bullet extends Sprite implements Serializable {
 	}
 	
 	public void drawBullet(Graphics g) {
-		g.drawImage(getImage(), getX() - getWidth()/2, getY() - getHeight()/2, BULLET_LENGTH, BULLET_LENGTH, null);
+		g.drawImage(
+			getImage(), 
+			getX() - getWidth()/2, 
+			getY() - getHeight()/2, 
+			BULLET_LENGTH, 
+			BULLET_LENGTH, 
+			null);
 	}
 	
 	public void Update() {
