@@ -66,13 +66,9 @@ public class Gun extends Building implements Serializable {
 		}
 	}
 	
-	public Sprite getBase() {
-		return base;
-	}
+	public Sprite getBase() { return base; }
 	
-	public Sprite getShaft() {
-		return shaft;
-	}
+	public Sprite getShaft() { return shaft; }
 	
 	@Override
 	public String toString() {

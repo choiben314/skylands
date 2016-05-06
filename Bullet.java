@@ -74,9 +74,22 @@ import java.awt.Graphics;
 import java.io.Serializable;
 
 public class Bullet extends Sprite implements Serializable {
-	public static double GRAVITY = -0.5;
-	public static double MAX_TOP = 100.0;
+	private static final long serialVersionUID = 696223701749554369L;
 	
+	/*
+	 * Make this more negative to make the bullet
+	 * travel faster
+	 */
+	public static double GRAVITY = -0.5;
+	/*
+	 * Between the mouse coordinates and the gun coordinates, the bullet
+	 * will travel as high as MAX_TOP units above the highest of the two.
+	 */
+	public static double MAX_TOP = 100.0;
+	/*
+	 * Determines the width and height of the bullet
+	 * (equal length for height and width)
+	 */
 	private static int BULLET_LENGTH = 2;
 	
 	private double t;

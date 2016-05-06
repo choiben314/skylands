@@ -27,8 +27,16 @@ public class Island implements Serializable {
 	}
 	
 	public void drawIsland(Graphics g) {
+		ArrayList<Building> drawLate = new ArrayList<Building>();
 		body.drawIslandBody(g);
 		for (Building b : buildings) {
+			if (b instanceof Gun) {
+				drawLate.add(b);
+			} else {
+				b.drawBuilding(g, body.getX(), body.getY());				
+			}
+		}
+		for (Building b : drawLate) {
 			b.drawBuilding(g, body.getX(), body.getY());
 		}
 	}
