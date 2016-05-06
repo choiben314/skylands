@@ -60,10 +60,10 @@ public class PlayerIslandManager {
 //				int newX = b.getGlobalX(playerIsland.getBody().getX());
 //				int newY = b.getGlobalY(playerIsland.getBody().getY());
 				if (b instanceof Gun) {	
-					int newX = playerIsland.getBody().getX() + (((Gun)(b)).getBaseCoords()[0] / Island.SCALE_FACTOR)
-							- b.getWidth() / 2;
-					int newY = playerIsland.getBody().getY() + (((Gun)(b)).getBaseCoords()[1] / Island.SCALE_FACTOR)
-							- b.getHeight() / 2;
+					int newX = playerIsland.getBody().getX() + (((Gun)(b)).getBase().getX() / Island.SCALE_FACTOR);
+//							- b.getWidth() / 2;
+					int newY = playerIsland.getBody().getY() + (((Gun)(b)).getBase().getY() / Island.SCALE_FACTOR)
+							+ b.getHeight() / 6;
 					
 					Bullet newB = new Bullet(newX, newY, new double[] {newX, newY}, Board.MOUSE_COORDS, ImagePaths.BULLET1);
 					playerIsland.getBullets().add(newB);

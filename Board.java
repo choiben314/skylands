@@ -58,7 +58,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 //		testLoading();
 		
 		for (int i = 0; i < 20; i++) {
-			if (i == 2 || i == 5) {
+			if (i == 2 || i == 5 || i == 7) {
 				Gun gNew = new Gun(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.GUN1_42x42, 10);
 				playerIslandManager.getIsland().addBuilding(gNew);
 			} else {

@@ -77,7 +77,7 @@ public class Bullet extends Sprite implements Serializable {
 	public static double GRAVITY = -0.5;
 	public static double MAX_TOP = 100.0;
 	
-	private static int BULLET_LENGTH = 10;
+	private static int BULLET_LENGTH = 2;
 	
 	private double t;
 	private double[] start;
@@ -95,8 +95,10 @@ public class Bullet extends Sprite implements Serializable {
 	public void drawBullet(Graphics g) {
 		g.drawImage(
 			getImage(), 
-			getX() - getWidth()/2, 
-			getY() - getHeight()/2, 
+//			getX() - getWidth()/2, 
+//			getY() - getHeight()/2, 
+			getX() - BULLET_LENGTH/2,
+			getY() - BULLET_LENGTH/2,
 			BULLET_LENGTH, 
 			BULLET_LENGTH, 
 			null);
