@@ -45,19 +45,27 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		 * Variable declarations here
 		 */
 		BOARD = this;
-		SCENE = 2;
+		SCENE = 0;
 		MOUSE_COORDS = new double[] {0.0, 0.0};
 		
 		timer = new Timer(1000, this);
 		timer.start();
-//		timer = new Timer();
-//		timer.schedule(new Update(), 0, 1000 / 60);
 
 		turquoise = new Color(0, 255, 255);
 		playerIslandManager = new PlayerIslandManager();
 		
 //		testSaving();
 //		testLoading();
+
+		for (int i = 0; i < 20; i++) {
+			if (i == 2 || i == 5 || i == 7) {
+				Gun gNew = new Gun(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.GUN1_42x42, 10);
+				playerIslandManager.getIsland().addBuilding(gNew);
+			} else {
+				ResourceProducer rNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
+				playerIslandManager.getIsland().addBuilding(rNew);
+			}
+		}
 		
 		moveIsland = false;
 		moveUp = false;
@@ -80,6 +88,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		repaint();
 	}
 
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		BOARD = this;
@@ -97,11 +106,23 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		
 		if (key == KeyEvent.VK_Q) {
 			System.exit(0);
+		} else if (key == KeyEvent.VK_0) {
+			SCENE = 0;
+		} else if (key == KeyEvent.VK_1) {
+			playerIslandManager.getIsland().getBody().setX(200);
+			playerIslandManager.getIsland().getBody().setY(300);
+			SCENE = 1;
+		} else if (key == KeyEvent.VK_2) {
+			SCENE = 2;
 		}
 		
 		if (SCENE == 0) {
 			
 		} else if (SCENE == 1) {
+			if (key == KeyEvent.VK_SPACE) {
+				playerIslandManager.setShoot(true);
+			}
+			
 			if (key == KeyEvent.VK_W){
 				moveIsland = true;
 				moveUp = true;

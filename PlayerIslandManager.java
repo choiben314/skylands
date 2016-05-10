@@ -1,5 +1,4 @@
 import java.awt.Graphics;
-import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,9 +14,11 @@ public class PlayerIslandManager {
 	
 
 	private Island playerIsland;
+	private boolean shoot;
 
 	public PlayerIslandManager() {
 		playerIsland = new Island(300, 300, ImagePaths.ISLAND_BODY_1);
+		shoot = false;
 	}
 	
 	public Island getIsland() {return playerIsland;}
@@ -32,14 +33,54 @@ public class PlayerIslandManager {
 				movePlayerIslandUp();
 			else if (moveIsland && !moveUp)
 				movePlayerIslandDown();
+			updateBullets(g);
 			playerIsland.drawIsland(g);
 		} else if (Board.SCENE == 2) {
 			Island.LARGE = true;
 			playerIsland.drawIsland(g);
-
 		} else if (Board.SCENE == 2) {
 			Island.LARGE = true;
 			playerIsland.drawIsland(g);
+		}
+	}
+	
+	public void setShoot(boolean bool) {
+		shoot = bool;
+	}
+	
+	public void updateBullets(Graphics g) {
+		if (shoot) {
+			shoot = false;
+			for (Building b : playerIsland.getBuildings()) {
+//				int newX = playerIsland.getBody().getX() + (b.getX() / Island.SCALE_FACTOR)
+//						- b.getWidth() / 2;
+//				int newY = playerIsland.getBody().getY() + (b.getY() / Island.SCALE_FACTOR)
+//						- b.getHeight() / 2;
+				
+//				int newX = b.getGlobalX(playerIsland.getBody().getX());
+//				int newY = b.getGlobalY(playerIsland.getBody().getY());
+				if (b instanceof Gun) {	
+					int newX = playerIsland.getBody().getX() + (((Gun)(b)).getBase().getX() / Island.SCALE_FACTOR);
+//							- b.getWidth() / 2;
+					int newY = playerIsland.getBody().getY() + (((Gun)(b)).getBase().getY() / Island.SCALE_FACTOR)
+							+ b.getHeight() / 6;
+					
+					Bullet newB = new Bullet(newX, newY, new double[] {newX, newY}, Board.MOUSE_COORDS, ImagePaths.BULLET1);
+					playerIsland.getBullets().add(newB);
+				}
+			}
+		}
+		
+		for (int i = 0; i < playerIsland.getBullets().size(); i++) {
+			Bullet b = playerIsland.getBullets().get(i);
+			b.Update();
+			b.drawBullet(g);
+			if (b.outOfBounds()) {
+				System.out.println("Yup");
+				playerIsland.getBullets().remove(b);
+				i--;
+			}
+				
 		}
 	}
 

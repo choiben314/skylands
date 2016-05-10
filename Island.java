@@ -15,7 +15,8 @@ public class Island implements Serializable {
 
 	private IslandBody body;
 	private ArrayList<Building> buildings;
-
+	private ArrayList<Bullet> bullets;
+	
 	/*
 	 * imageName is the name of the body...
 	 */
@@ -30,11 +31,21 @@ public class Island implements Serializable {
 				Island.BUILDING_POS[i][1] = Island.FIRST_BUILDING_POS[1];
 			}
 		}
+
+		bullets = new ArrayList<Bullet>();
 	}
 
 	public void drawIsland(Graphics g) {
+		ArrayList<Building> drawLate = new ArrayList<Building>();
 		body.drawIslandBody(g);
 		for (Building b : buildings) {
+			if (b instanceof Gun) {
+				drawLate.add(b);
+			} else {
+				b.drawBuilding(g, body.getX(), body.getY());				
+			}
+		}
+		for (Building b : drawLate) {
 			b.drawBuilding(g, body.getX(), body.getY());
 		}
 	}
@@ -65,6 +76,10 @@ public class Island implements Serializable {
 
 	public void moveHoriz(int amt) {
 		body.setX(body.getX() + amt);
+	}
+	
+	public ArrayList<Bullet> getBullets() {
+		return bullets;
 	}
 
 	@Override

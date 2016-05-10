@@ -36,7 +36,6 @@ public class Sprite implements Serializable {
 	}
 
 	public Image getImage() {
-
 		return imageIcon.getImage();
 	}
 
