@@ -59,11 +59,6 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 //		testSaving();
 //		testLoading();
 		
-		for (int i = 0; i < 20; i++) {
-			ResourceProducer rNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
-			playerIslandManager.getIsland().addBuilding(rNew);
-		}
-		
 		moveIsland = false;
 		moveUp = false;
 		gun = new Gun(30, 30, ImagePaths.MISSILE, 33);
@@ -115,7 +110,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 				moveUp = false;
 			}
 		} else if (SCENE == 2) {
-			
+		
 		}	
 		e.consume();
 	}
@@ -147,6 +142,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseMoved(MouseEvent e) {
 		System.out.println(e.getX() + " " + e.getY());
+		MOUSE_COORDS = new double[] {e.getX(), e.getY()};
 		e.consume();
 	}
 	public void mouseDragged(MouseEvent e) {}

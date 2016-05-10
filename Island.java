@@ -7,52 +7,62 @@ import java.io.Serializable;
  */
 public class Island implements Serializable {
 	private static final long serialVersionUID = -4990081285229491555L;
-	
+
 	public static int SCALE_FACTOR = 3;
 	public static boolean LARGE = true;
-//	public static int[] FIRST_BUILDING_POS = {-414, -486};
-	public static int[] FIRST_BUILDING_POS = {-399, -471};
-	
+	public static int[] FIRST_BUILDING_POS = { -399, -471 };
+	public static int[][] BUILDING_POS;
+
 	private IslandBody body;
 	private ArrayList<Building> buildings;
-	
+
 	/*
 	 * imageName is the name of the body...
 	 */
 	public Island(int x, int y, String imageName) {
 		body = new IslandBody(x, y, imageName);
 		buildings = new ArrayList<Building>();
+		if (BUILDING_POS == null) {
+			BUILDING_POS = new int[20][2];
+			for (int i = 0; i < 20; i++) {
+				Island.BUILDING_POS[i][0] = Island.FIRST_BUILDING_POS[0] + 42
+						* i;
+				Island.BUILDING_POS[i][1] = Island.FIRST_BUILDING_POS[1];
+			}
+		}
 	}
-	
+
 	public void drawIsland(Graphics g) {
 		body.drawIslandBody(g);
 		for (Building b : buildings) {
 			b.drawBuilding(g, body.getX(), body.getY());
 		}
 	}
-	
+
 	public boolean checkDead() {
 		return body.checkDead();
 	}
-	
-	public IslandBody getBody() { return body; }
-	
+
+	public IslandBody getBody() {
+		return body;
+	}
+
 	public void addBuilding(Building b) {
 		buildings.add(b);
 	}
-	
+
 	public ArrayList<Building> getBuildings() {
 		return buildings;
 	}
-	
+
 	public void removeBuilding(Building b) {
 		buildings.remove(b);
 	}
-	
+
 	public void moveVert(int amt) {
 		body.setY(body.getY() - amt);
 	}
-	
+
 	public void moveHoriz(int amt) {
 		body.setX(body.getX() + amt);
 	}
