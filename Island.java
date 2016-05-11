@@ -10,9 +10,11 @@ public class Island implements Serializable {
 
 	public static int SCALE_FACTOR = 3;
 	public static boolean LARGE = true;
-	public static int[] FIRST_BUILDING_POS = { -399, -471 };
-	public static int[][] BUILDING_POS;
 
+	public static int BODY_HEIGHT = 231 * SCALE_FACTOR;
+	public static int[] FIRST_BUILDING_POS = {-399, -1 * (BODY_HEIGHT/2 + 21)};
+	public static int[][] BUILDING_POS;
+	
 	private IslandBody body;
 	private ArrayList<Building> buildings;
 	private ArrayList<Bullet> bullets;
