@@ -39,6 +39,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	private boolean moveIsland;
 	private boolean moveUp;
 	Gun gun;
+	private int k = 0;
 
 	public Board() {
 		/* 
@@ -57,15 +58,15 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 //		testSaving();
 //		testLoading();
 
-		for (int i = 0; i < 20; i++) {
-			if (i == 2 || i == 5 || i == 7) {
-				Gun gNew = new Gun(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.GUN1_42x42, 10);
-				playerIslandManager.getIsland().addBuilding(gNew);
-			} else {
-				ResourceProducer rNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
-				playerIslandManager.getIsland().addBuilding(rNew);
-			}
-		}
+//		for (int i = 0; i < 20; i++) {
+//			if (i == 2 || i == 5 || i == 7) {
+//				Gun gNew = new Gun(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.GUN1_42x42, 10);
+//				playerIslandManager.getIsland().addBuilding(gNew);
+//			} else {
+//				ResourceProducer rNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
+//				playerIslandManager.getIsland().addBuilding(rNew);
+//			}
+//		}
 		
 		moveIsland = false;
 		moveUp = false;
@@ -131,7 +132,15 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 				moveUp = false;
 			}
 		} else if (SCENE == 2) {
-		
+//			if (key == KeyEvent.VK_B) {
+//				ResourceProducer rNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * (k++), Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
+//				playerIslandManager.getIsland().addBuilding(rNew);
+//			}
+//			else if (key == KeyEvent.VK_D) {
+//				ArrayList<Building> b = playerIslandManager.getIsland().getBuildings();
+//				b.remove(b.size() - 1);
+//				k--;
+//			}
 		}	
 		e.consume();
 	}
@@ -160,9 +169,12 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public void mouseExited(MouseEvent e) {}
 	public void mouseClicked(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {}
-	public void mouseReleased(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {
+		BuildingManager.placeBuilding(e.getX(), e.getY(), playerIslandManager);
+		e.consume();
+	}
 	public void mouseMoved(MouseEvent e) {
-		System.out.println(e.getX() + " " + e.getY());
+		//System.out.println(e.getX() + " " + e.getY());
 		MOUSE_COORDS = new double[] {e.getX(), e.getY()};
 		e.consume();
 	}
