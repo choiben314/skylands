@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
 //import java.util.Timer;
 
 /*
@@ -22,56 +23,63 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	private static final long serialVersionUID = -1543062753010683501L;
 	public static final int FRAME_WIDTH = 1000;
 	public static final int FRAME_HEIGHT = 600;
-	
+
 	public static Board BOARD;
 	/*
-	 * Scene 0 = start screen
-	 * Scene 1 = game
-	 * Scene 2 = zoomed in scene of island
+	 * Scene 0 = start screen Scene 1 = game Scene 2 = zoomed in scene of island
 	 */
 	public static int SCENE;
 	public static double[] MOUSE_COORDS;
-	
+
 	private Timer timer;
 	private Color turquoise;
 	private PlayerIslandManager playerIslandManager;
-	
+	private BuildingManager buildingManager;
+	private String bType;
+
+	private boolean mouseEntered;
+
 	private boolean moveIsland;
 	private boolean moveUp;
 	Gun gun;
-	private int k = 0;
 
 	public Board() {
-		/* 
+		/*
 		 * Variable declarations here
 		 */
 		BOARD = this;
 		SCENE = 0;
-		MOUSE_COORDS = new double[] {0.0, 0.0};
-		
+		MOUSE_COORDS = new double[] { 0.0, 0.0 };
+
 		timer = new Timer(1000, this);
 		timer.start();
 
 		turquoise = new Color(0, 255, 255);
 		playerIslandManager = new PlayerIslandManager();
-		
-//		testSaving();
-//		testLoading();
+		buildingManager = new BuildingManager(playerIslandManager);
+		bType = "wood";
 
-//		for (int i = 0; i < 20; i++) {
-//			if (i == 2 || i == 5 || i == 7) {
-//				Gun gNew = new Gun(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.GUN1_42x42, 10);
-//				playerIslandManager.getIsland().addBuilding(gNew);
-//			} else {
-//				ResourceProducer rNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
-//				playerIslandManager.getIsland().addBuilding(rNew);
-//			}
-//		}
-		
+		// testSaving();
+		// testLoading();
+
+		// for (int i = 0; i < 20; i++) {
+		// if (i == 2 || i == 5 || i == 7) {
+		// Gun gNew = new Gun(Island.FIRST_BUILDING_POS[0] + 42 * i,
+		// Island.FIRST_BUILDING_POS[1], ImagePaths.GUN1_42x42, 10);
+		// playerIslandManager.getIsland().addBuilding(gNew);
+		// } else {
+		// ResourceProducer rNew = new
+		// ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * i,
+		// Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
+		// playerIslandManager.getIsland().addBuilding(rNew);
+		// }
+		// }
+
+		mouseEntered = false;
 		moveIsland = false;
 		moveUp = false;
 		gun = new Gun(30, 30, ImagePaths.MISSILE, 33);
-		
+
 		addKeyListener(new TAdapter());
 		setFocusable(true);
 		setBackground(turquoise);
@@ -81,7 +89,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	}
-	
+
 	/*
 	 * This is the game loop (like Update() in Unity)
 	 */
@@ -94,17 +102,20 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		super.paint(g);
 		BOARD = this;
 		playerIslandManager.Update(g, moveIsland, moveUp);
-		
-//		gun.drawBuilding(g);
+		buildingManager.Update(g, mouseEntered, bType);
+
+		// gun.drawBuilding(g);
 	}
 
-	public void actionPerformed(ActionEvent e) {}
+	public void actionPerformed(ActionEvent e) {
+	}
 
-	private class TAdapter extends KeyAdapter {}
+	private class TAdapter extends KeyAdapter {
+	}
 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		
+
 		if (key == KeyEvent.VK_Q) {
 			System.exit(0);
 		} else if (key == KeyEvent.VK_0) {
@@ -116,15 +127,15 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		} else if (key == KeyEvent.VK_2) {
 			SCENE = 2;
 		}
-		
+
 		if (SCENE == 0) {
-			
+
 		} else if (SCENE == 1) {
 			if (key == KeyEvent.VK_SPACE) {
 				playerIslandManager.setShoot(true);
 			}
-			
-			if (key == KeyEvent.VK_W){
+
+			if (key == KeyEvent.VK_W) {
 				moveIsland = true;
 				moveUp = true;
 			} else if (key == KeyEvent.VK_S) {
@@ -132,16 +143,25 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 				moveUp = false;
 			}
 		} else if (SCENE == 2) {
-//			if (key == KeyEvent.VK_B) {
-//				ResourceProducer rNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * (k++), Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
-//				playerIslandManager.getIsland().addBuilding(rNew);
-//			}
-//			else if (key == KeyEvent.VK_D) {
-//				ArrayList<Building> b = playerIslandManager.getIsland().getBuildings();
-//				b.remove(b.size() - 1);
-//				k--;
-//			}
-		}	
+			if (key == KeyEvent.VK_J) {
+				bType = "wood";
+			} else if (key == KeyEvent.VK_K) {
+				bType = "gun";
+			}
+			// if (key == KeyEvent.VK_B) {
+			// ResourceProducer rNew = new
+			// ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * (k++),
+			// Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
+			// playerIslandManager.getIsland().addBuilding(rNew);
+			// }
+			if (key == KeyEvent.VK_D) {
+				ArrayList<Building> b = playerIslandManager.getIsland()
+						.getBuildings();
+				if (b.size() > 0) {
+					b.remove(b.size() - 1);
+				}
+			}
+		}
 		e.consume();
 	}
 
@@ -150,64 +170,85 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	 */
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
-		
+
 		if (SCENE == 0) {
-			
+
 		} else if (SCENE == 1) {
-			if (key == KeyEvent.VK_W){
+			if (key == KeyEvent.VK_W) {
 				moveIsland = false;
 			} else if (key == KeyEvent.VK_S) {
 				moveIsland = false;
 			}
 		} else if (SCENE == 2) {
-			
+
 		}
 		e.consume();
 	}
-	public void keyTyped(KeyEvent e) {}
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
-	public void mouseClicked(MouseEvent e) {}
-	public void mousePressed(MouseEvent e) {}
+
+	public void keyTyped(KeyEvent e) {
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		mouseEntered = true;
+	}
+
+	public void mouseExited(MouseEvent e) {
+		mouseEntered = false;
+	}
+
+	public void mouseClicked(MouseEvent e) {
+	}
+
+	public void mousePressed(MouseEvent e) {
+	}
+
 	public void mouseReleased(MouseEvent e) {
-		BuildingManager.placeBuilding(e.getX(), e.getY(), playerIslandManager);
-		e.consume();
+		if (Board.SCENE == 2) {
+			BuildingManager.placeBuilding(e.getX(), e.getY(), bType);
+			e.consume();
+		}
 	}
+
 	public void mouseMoved(MouseEvent e) {
-		//System.out.println(e.getX() + " " + e.getY());
-		MOUSE_COORDS = new double[] {e.getX(), e.getY()};
+		// System.out.println(e.getX() + " " + e.getY());
+		MOUSE_COORDS = new double[] { e.getX(), e.getY() };
 		e.consume();
 	}
-	public void mouseDragged(MouseEvent e) {}
+
+	public void mouseDragged(MouseEvent e) {
+	}
 
 	public void testSaving() {
 		Island pi = playerIslandManager.getIsland();
-		ResourceProducer rp = new ResourceProducer(500, 300, ImagePaths.MISSILE, "steel");
+		ResourceProducer rp = new ResourceProducer(500, 300,
+				ImagePaths.MISSILE, "steel");
 		Gun g = new Gun(30, 30, ImagePaths.MISSILE, 38);
 		Gun g1 = new Gun(50, 50, ImagePaths.MISSILE, 89);
 		pi.addBuilding(rp);
 		pi.addBuilding(g);
 		pi.addBuilding(g1);
-		
+
 		System.out.println(pi);
-		
+
 		playerIslandManager.saveIsland();
 		System.exit(0);
 	}
-	
+
 	public void testLoading() {
 		playerIslandManager.loadIsland();
 		Island pi = playerIslandManager.getIsland();
 		ArrayList<Building> bs = pi.getBuildings();
 		for (Building b : bs) {
 			if (b instanceof ResourceProducer) {
-				System.out.println("Produces: " + ((ResourceProducer)b).getProduces());
+				System.out.println("Produces: "
+						+ ((ResourceProducer) b).getProduces());
 			} else {
-				System.out.println("Power is: " + ((Gun)b).getPower());
+				System.out.println("Power is: " + ((Gun) b).getPower());
 			}
 		}
-		
+
 		System.out.println(playerIslandManager.getIsland());
 		System.exit(0);
 	}
+
 }

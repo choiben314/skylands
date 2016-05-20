@@ -1,5 +1,8 @@
 import javax.swing.JFrame;
 
+// cd /Volumes/yog2018-2/18choi9/APCompSci/Skylands
+// cd /Volumes/yog2018-4/18li20/APCompSci/Skylands
+
 public class Main extends JFrame {
 	private static final long serialVersionUID = 4648172894076113183L;
 

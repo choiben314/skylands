@@ -51,7 +51,7 @@ public class Island implements Serializable {
 			b.drawBuilding(g, body.getX(), body.getY());
 		}
 	}
-
+	
 	public boolean checkDead() {
 		return body.checkDead();
 	}
