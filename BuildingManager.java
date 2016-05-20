@@ -1,11 +1,40 @@
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class BuildingManager {
+	private static PlayerIslandManager pim;
 
-	public static void placeBuilding(double x, double y, PlayerIslandManager pim) {
+	public BuildingManager(PlayerIslandManager _pim) {
+		pim = _pim;
+	}
 
-		double mx = x;
-		double my = y;
+	public void Update(Graphics g, boolean mouseEntered, String type) {
+		if (mouseEntered)
+			drawTransparent(g, type);
+	}
+
+	public static void placeBuilding(double mx, double my, String type) {
+
+		int sIndex = getClosest(mx, my);
+
+		int sx = Island.BUILDING_POS[sIndex][0];
+		int sy = Island.BUILDING_POS[sIndex][1];
+
+		if (type.equals("wood")) {
+			if (checkCoords(sx, sy, pim.getIsland().getBuildings())) {
+				pim.getIsland().addBuilding(
+						new ResourceProducer(sx, sy, ImagePaths.BUILDING_TEST,
+								type));
+			}
+		} else if (type.equals("gun")) {
+			if (checkCoords(sx, sy, pim.getIsland().getBuildings())) {
+				pim.getIsland().addBuilding(
+						new Gun(sx, sy, ImagePaths.GUN1_42x42, 10));
+			}
+		}
+	}
+
+	public static int getClosest(double mx, double my) {
 
 		int bx = pim.getIsland().getBody().getX();
 		int by = pim.getIsland().getBody().getY();
@@ -24,19 +53,37 @@ public class BuildingManager {
 			if (distToBuilding < shortestDist) {
 				shortestIndex = i;
 				shortestDist = distToBuilding;
-				System.out.println(shortestIndex);
 			}
 		}
+		return shortestIndex;
+	}
 
-		int sx = Island.BUILDING_POS[shortestIndex][0];
-		int sy = Island.BUILDING_POS[shortestIndex][1];
+	public void drawTransparent(Graphics g, String type) {
+		if (Board.SCENE == 2) {
+			int sIndex = getClosest(Board.MOUSE_COORDS[0],
+					Board.MOUSE_COORDS[1]);
+			String ip = null;
 
-		if (checkCoords(sx, sy, pim.getIsland().getBuildings())) {
-			pim.getIsland().addBuilding(
-					new ResourceProducer(sx, sy, ImagePaths.BUILDING_TEST, true,
-							"wood"));
+			if (type.equals("wood")) {
+				ip = ImagePaths.BUILDING_TEST_TRANSPARENT;
+			} else if (type.equals("gun")) {
+				ip = ImagePaths.GUN1_TRANSPARENT_42x42;
+			}
+
+			Sprite t = new Sprite(Island.BUILDING_POS[sIndex][0],
+					Island.BUILDING_POS[sIndex][1], ip);
+
+			if (checkCoords(Island.BUILDING_POS[sIndex][0],
+					Island.BUILDING_POS[sIndex][1], pim.getIsland()
+							.getBuildings())) {
+				g.drawImage(
+						t.getImage(),
+						t.getX() + pim.getIsland().getBody().getX()
+								- (t.getWidth() / 2),
+						t.getY() + pim.getIsland().getBody().getY()
+								- (t.getHeight() / 2), null);
+			}
 		}
-
 	}
 
 	private static boolean checkCoords(int x, int y, ArrayList<Building> bList) {

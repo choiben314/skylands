@@ -4,14 +4,16 @@
  */
 public class ImagePaths {
 	public static final String MISSILE = "Images/Missile.png";
-	
-//	public static final String ISLAND_BODY_1 = "Images/Island/ProtoIslandBody_300x300.png";
+
+//	public static final String ISLAND_BODY_1 = "Images/Island/ProtoIslandBody.png";
 	public static final String ISLAND_BODY_1 = "Images/Island/PlayerIsland1_231x300.png";
 	public static final String BUILDING_TEST = "Images/Island/ProtoBuilding_14x14.png";
+	public static final String BUILDING_TEST_TRANSPARENT = "Images/Island/ProtoBuilding_Transparent_42x42.png";
 	
 	public static final String GUN1_14x14_BASE = "Images/Gun/Gun1_14x14_Base.png";
 	public static final String GUN1_14x14_SHAFT = "Images/Gun/Gun1_14x14_Shaft.png";
 	public static final String GUN1_42x42 = "Images/Gun/Gun1_42x42.png";
+	public static final String GUN1_TRANSPARENT_42x42 = "Images/Gun/Gun1_Transparent_42x42.png";
 	public static final String BULLET1 = "Images/Gun/Projectile1.png";
 	
 	/*

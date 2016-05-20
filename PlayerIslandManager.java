@@ -11,7 +11,6 @@ public class PlayerIslandManager {
 	private static String FOLDER = "Player";
 
 	private static int VERT_MOVE_SPEED = 3;
-	
 
 	private Island playerIsland;
 	private boolean shoot;
@@ -64,7 +63,6 @@ public class PlayerIslandManager {
 //							- b.getWidth() / 2;
 					int newY = playerIsland.getBody().getY() + (((Gun)(b)).getBase().getY() / Island.SCALE_FACTOR)
 							+ b.getHeight() / 6;
-					
 					Bullet newB = new Bullet(newX, newY, new double[] {newX, newY}, Board.MOUSE_COORDS, ImagePaths.BULLET1);
 					playerIsland.getBullets().add(newB);
 				}
@@ -80,7 +78,6 @@ public class PlayerIslandManager {
 				playerIsland.getBullets().remove(b);
 				i--;
 			}
-				
 		}
 	}
 
@@ -124,7 +121,7 @@ public class PlayerIslandManager {
 	public void movePlayerIslandUp() {
 		playerIsland.moveVert(VERT_MOVE_SPEED);
 	}
-	
+
 	public void movePlayerIslandDown() {
 		playerIsland.moveVert(-VERT_MOVE_SPEED);
 	}

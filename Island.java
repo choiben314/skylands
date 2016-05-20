@@ -26,7 +26,6 @@ public class Island implements Serializable {
 	 * imageName is the name of the body...
 	 */
 	public Island(int x, int y, String imageName) {
-//		large = true;
 		body = new IslandBody(x, y, imageName);
 		buildings = new ArrayList<Building>();
 		if (BUILDING_POS == null) {
@@ -41,10 +40,6 @@ public class Island implements Serializable {
 		bullets = new ArrayList<Bullet>();
 	}
 	
-//	public boolean drawLarge() {
-//		return large;
-//	}
-
 	public void drawIsland(Graphics g) {
 		ArrayList<Building> drawLate = new ArrayList<Building>();
 		body.drawIslandBody(g);
@@ -59,7 +54,7 @@ public class Island implements Serializable {
 			b.drawBuilding(g, body.getX(), body.getY());
 		}
 	}
-
+	
 	public boolean checkDead() {
 		return body.checkDead();
 	}
