@@ -16,8 +16,6 @@ public class Island implements Serializable {
 	public static int[] FIRST_BUILDING_POS = {-399, -1 * (BODY_HEIGHT/2 + 21)};
 	public static int[][] BUILDING_POS;
 	
-//	private boolean large;
-	private boolean isPlayerIsland;
 	private IslandBody body;
 	private ArrayList<Building> buildings;
 	private ArrayList<Bullet> bullets;
@@ -40,18 +38,31 @@ public class Island implements Serializable {
 		bullets = new ArrayList<Bullet>();
 	}
 	
+	public void Update(Graphics g) {
+		body.Update(g);
+		for (Building b : buildings) {
+			b.Update(g, body.getX(), body.getY());
+		}
+		drawIsland(g);
+	}
+	
+	/*
+	 * You shouldn't have to edit this function, but if you do,
+	 * there's an overridden version in the EnemyIsland class, so just
+	 * make sure that does what you want it to do.
+	 */
 	public void drawIsland(Graphics g) {
 		ArrayList<Building> drawLate = new ArrayList<Building>();
-		body.drawIslandBody(g);
+		body.drawIslandBody(g, true);
 		for (Building b : buildings) {
 			if (b instanceof Gun) {
 				drawLate.add(b);
 			} else {
-				b.drawBuilding(g, body.getX(), body.getY());				
+				b.drawBuilding(g, body.getX(), body.getY(), true);				
 			}
 		}
 		for (Building b : drawLate) {
-			b.drawBuilding(g, body.getX(), body.getY());
+			b.drawBuilding(g, body.getX(), body.getY(), true);
 		}
 	}
 	

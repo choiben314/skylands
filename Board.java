@@ -23,6 +23,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public static final int FRAME_HEIGHT = 600;
 
 	public static Board BOARD;
+	public static Graphics G;
 	/*
 	 * Scene 0 = start screen Scene 1 = game Scene 2 = zoomed in scene of island
 	 */
@@ -36,10 +37,10 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	private String bType;
 
 	private boolean mouseEntered;
-
 	private boolean moveIsland;
 	private boolean moveUp;
-	Gun gun;
+
+	private EnemyIslandManager enemyIslandManager;
 
 	public Board() {
 		/*
@@ -76,7 +77,6 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		mouseEntered = false;
 		moveIsland = false;
 		moveUp = false;
-		gun = new Gun(30, 30, ImagePaths.MISSILE, 33);
 
 		addKeyListener(new TAdapter());
 		setFocusable(true);
@@ -99,11 +99,10 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public void paint(Graphics g) {
 		super.paint(g);
 		BOARD = this;
-		playerIslandManager.Update(g, moveIsland, moveUp);
+		G = g;
+		playerIslandManager.Update(g, enemyIslandManager, moveIsland, moveUp);
 		enemyIslandManager.Update(g);
 		buildingManager.Update(g, mouseEntered, bType);
-
-		// gun.drawBuilding(g);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -208,7 +207,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		// System.out.println(e.getX() + " " + e.getY());
+		 System.out.println("Mouse at: " + e.getX() + " " + e.getY());
 		MOUSE_COORDS = new double[] { e.getX(), e.getY() };
 		e.consume();
 	}

@@ -5,11 +5,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class PlayerIslandManager {
 	private static String PLAYER_ISLAND_FILE = "playerIslandData.txt";
 	private static String FOLDER = "Player";
 
+	private static int INACCURACY = 10;
 	private static int VERT_MOVE_SPEED = 3;
 
 	private Island playerIsland;
@@ -23,7 +25,7 @@ public class PlayerIslandManager {
 	public Island getIsland() {return playerIsland;}
 	public void setIsland(Island i) {playerIsland = i;}
 	
-	public void Update(Graphics g, boolean moveIsland, boolean moveUp) {
+	public void Update(Graphics g, EnemyIslandManager eim, boolean moveIsland, boolean moveUp) {
 		if (Board.SCENE == 0) {
 			// start screen
 		} else if (Board.SCENE == 1) {
@@ -32,14 +34,15 @@ public class PlayerIslandManager {
 				movePlayerIslandUp();
 			else if (moveIsland && !moveUp)
 				movePlayerIslandDown();
-			updateBullets(g);
-			playerIsland.drawIsland(g);
+			updateBullets(g, eim);
+			playerIsland.Update(g);
+			eim.Update(g);
 		} else if (Board.SCENE == 2) {
 			Island.LARGE = true;
-			playerIsland.drawIsland(g);
+			playerIsland.Update(g);
 		} else if (Board.SCENE == 2) {
 			Island.LARGE = true;
-			playerIsland.drawIsland(g);
+			playerIsland.Update(g);
 		}
 	}
 	
@@ -47,23 +50,16 @@ public class PlayerIslandManager {
 		shoot = bool;
 	}
 	
-	public void updateBullets(Graphics g) {
+	public void updateBullets(Graphics g, EnemyIslandManager eim) {
 		if (shoot) {
 			shoot = false;
 			for (Building b : playerIsland.getBuildings()) {
-//				int newX = playerIsland.getBody().getX() + (b.getX() / Island.SCALE_FACTOR)
-//						- b.getWidth() / 2;
-//				int newY = playerIsland.getBody().getY() + (b.getY() / Island.SCALE_FACTOR)
-//						- b.getHeight() / 2;
-				
-//				int newX = b.getGlobalX(playerIsland.getBody().getX());
-//				int newY = b.getGlobalY(playerIsland.getBody().getY());
 				if (b instanceof Gun) {	
 					int newX = playerIsland.getBody().getX() + (((Gun)(b)).getBase().getX() / Island.SCALE_FACTOR);
-//							- b.getWidth() / 2;
 					int newY = playerIsland.getBody().getY() + (((Gun)(b)).getBase().getY() / Island.SCALE_FACTOR)
 							+ b.getHeight() / 6;
-					Bullet newB = new Bullet(newX, newY, new double[] {newX, newY}, Board.MOUSE_COORDS, ImagePaths.BULLET1);
+					double[] target = {Board.MOUSE_COORDS[0] + (int)(Math.random() * (2 * INACCURACY + 1) - INACCURACY), Board.MOUSE_COORDS[1] + (int)(Math.random() * (2 * INACCURACY + 1) - INACCURACY)};
+					Bullet newB = new Bullet(newX, newY, new double[] {newX, newY}, target, ImagePaths.BULLET1);
 					playerIsland.getBullets().add(newB);
 				}
 			}
@@ -74,9 +70,29 @@ public class PlayerIslandManager {
 			b.Update();
 			b.drawBullet(g);
 			if (b.outOfBounds()) {
-				System.out.println("Yup");
 				playerIsland.getBullets().remove(b);
 				i--;
+				/*
+				 * break because bullet is removed
+				 * and there's no point checking collision
+				 */
+				break;
+			}
+			for (EnemyIsland e : eim.getEnemyIslands()) {
+				if (b.collision((Sprite)e.getBody())) {
+					playerIsland.getBullets().remove(b);
+					i--;
+					break;
+				}
+				for (Building bu : e.getBuildings()) {
+					if (b.collision((Sprite)bu)) {
+						System.out.println("hm?");
+						//do stuff to building's health and stuff
+						playerIsland.getBullets().remove(b);
+						i--;
+						break;
+					}
+				}
 			}
 		}
 	}

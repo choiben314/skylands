@@ -24,7 +24,6 @@ public class Main extends JFrame {
 				oldTime = System.currentTimeMillis();
 				board.Update();
 			}
-//			Thread.sleep(10);
 		}
 
 	}

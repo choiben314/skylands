@@ -20,4 +20,5 @@ public class ImagePaths {
 	 * Enemy Images
 	 */
 	public static final String ISLAND_BODY_ENEMY_1 = "Images/Island/PlayerIsland1_231x300.png";
+//	public static final String ISLAND_BODY_ENEMY_1 = "Images/Island/PlayerIsland1_231x300.pg";
 }

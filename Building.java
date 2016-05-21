@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.io.Serializable;
+import java.awt.Rectangle;
 
 /*
  * Building acts to encapsulate(?) the legit 
@@ -11,12 +12,33 @@ import java.io.Serializable;
 public abstract class Building extends Sprite implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private int bx;
+	private int by;
 	//health will be displayed as number above building
 	private int health;
 	
 	public Building(int x, int y, String imageName) {
-		super(x, y, imageName);
+		super(x, y,	imageName);
 		health = 100;
+		bx = 0;
+		by = 0;
+	}
+	
+	public void Update(Graphics g, int _bx, int _by) {
+//		System.out.println(bx + " " + by);
+		bx = _bx;
+		by = _by;
+		setRect(calcRect());
+	}
+	
+	@Override 
+	public Rectangle calcRect() {
+		return new Rectangle(
+			getGlobalX(bx),
+			getGlobalY(by) + getHeight()/Island.SCALE_FACTOR,
+			getWidth(),
+			getHeight());
+		
 	}
 	
 	/* Also need to draw how much health it has
@@ -28,7 +50,7 @@ public abstract class Building extends Sprite implements Serializable {
 	/*
 	 * bx and by are the x and y coordinates of the island body
 	 */
-	public abstract void drawBuilding(Graphics g, int bx, int by);
+	public abstract void drawBuilding(Graphics g, int bx, int by, boolean isPlayer);
 	public abstract String toString();
 	
 	/*

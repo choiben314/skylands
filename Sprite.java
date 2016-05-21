@@ -19,7 +19,7 @@ public class Sprite implements Serializable {
 		y = _y;
 		loadImage(imageName);
 		getImageDimensions();
-		rect = new Rectangle(x, y, width, height);
+		rect = calcRect();
 	}
 
 	public void loadImage(String imageName) {
@@ -66,9 +66,17 @@ public class Sprite implements Serializable {
 	public int getHeight() {
 		return height;
 	}
+	
+	public void setRect(Rectangle _rect) {
+		rect = _rect;
+	}
 
 	public Rectangle getRect() {
 		return rect;
+	}
+	
+	public Rectangle calcRect() {
+		return new Rectangle(x - width/2, y - height/2, width, height);
 	}
 
 	/*

@@ -71,6 +71,7 @@
 //	}
 //}
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.io.Serializable;
 
 public class Bullet extends Sprite implements Serializable {
@@ -117,12 +118,18 @@ public class Bullet extends Sprite implements Serializable {
 			null);
 	}
 	
+	@Override
+	public Rectangle calcRect() {
+		return new Rectangle(getX(), getY(), BULLET_LENGTH, BULLET_LENGTH);
+	}
+	
 	public void Update() {
 		t -= 0.1;
 		double x = start[0] + traj[0] * t;
 		double y = start[1] - 0.5 * GRAVITY * Math.pow(t, 2) + traj[1] * t;
 		setX((int)x);
 		setY((int)y);
+		setRect(calcRect());
 	}
 	
 	/*

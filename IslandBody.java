@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.io.Serializable;
 
 public class IslandBody extends Sprite implements Serializable {
@@ -15,9 +16,25 @@ public class IslandBody extends Sprite implements Serializable {
 		super(x, y, imageName);
 		health = 1000;
 	}
+	
+	public void Update(Graphics g) {
+		System.out.println("IslandBody" + getX() + " " + getY());
+		setRect(calcRect());
+		System.out.println("IslandRect" + getRect());
+	}
+	
+	@Override
+	public Rectangle calcRect() {
+		return new Rectangle(
+			getX() - getWidth()/4,
+			getY() - getHeight()/2,
+			getWidth()/2,
+			getHeight()/2
+			);
+	}
 
-	public void drawIslandBody(Graphics g) {
-		if (Island.LARGE) {
+	public void drawIslandBody(Graphics g, boolean isPlayerBody) {
+		if (Island.LARGE && isPlayerBody) {
 			setX(Board.FRAME_WIDTH / 2);
 
 			setY((Board.FRAME_HEIGHT / 2) + (getHeight() * Island.SCALE_FACTOR / 2));
@@ -31,7 +48,7 @@ public class IslandBody extends Sprite implements Serializable {
 		} else {
 			g.drawImage(getImage(), getX() - getWidth() / 2, getY()
 					- getHeight() / 2, null);
-			// System.out.println("Blah" + getX() + " " + getY());
+//			 System.out.println("Blah" + getX() + " " + getY());
 		}
 	}
 
