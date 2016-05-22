@@ -101,7 +101,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		BOARD = this;
 		G = g;
 		playerIslandManager.Update(g, enemyIslandManager, moveIsland, moveUp);
-		enemyIslandManager.Update(g);
+		enemyIslandManager.Update(g, playerIslandManager);
 		buildingManager.Update(g, mouseEntered, bType);
 	}
 

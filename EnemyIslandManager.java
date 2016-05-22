@@ -16,7 +16,7 @@ public class EnemyIslandManager {
 	
 	public ArrayList<EnemyIsland> getEnemyIslands() {return enemyIslands;}
 	
-	public void Update(Graphics g) {
+	public void Update(Graphics g, PlayerIslandManager pim) {
 		if (Board.SCENE == 0) {
 			
 		} else if (Board.SCENE == 1) {
@@ -24,8 +24,11 @@ public class EnemyIslandManager {
 				enemyIslands.add(makeRandomEnemyIsland());
 			}
 			for (EnemyIsland enemy : enemyIslands) {
-				enemy.Update(g);
-				enemy.drawIsland(g);
+				enemy.Update(g, pim);
+//				for (Bullet b : enemy.getBullets()) {
+//					b.Update();
+//					b.drawBullet(g);
+//				}
 			}
 		} else if (Board.SCENE == 2) {
 			

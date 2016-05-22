@@ -11,7 +11,8 @@ public class PlayerIslandManager {
 	private static String PLAYER_ISLAND_FILE = "playerIslandData.txt";
 	private static String FOLDER = "Player";
 
-	private static int INACCURACY = 10;
+	public static int INACCURACY = 10;
+	
 	private static int VERT_MOVE_SPEED = 3;
 
 	private Island playerIsland;
@@ -36,7 +37,7 @@ public class PlayerIslandManager {
 				movePlayerIslandDown();
 			updateBullets(g, eim);
 			playerIsland.Update(g);
-			eim.Update(g);
+//			eim.Update(g, this);
 		} else if (Board.SCENE == 2) {
 			Island.LARGE = true;
 			playerIsland.Update(g);
@@ -65,6 +66,37 @@ public class PlayerIslandManager {
 			}
 		}
 		
+//		for (int i = 0; i < playerIsland.getBullets().size(); i++) {
+//			Bullet b = playerIsland.getBullets().get(i);
+//			b.Update();
+//			b.drawBullet(g);
+//			if (b.outOfBounds()) {
+//				playerIsland.getBullets().remove(b);
+//				i--;
+//				/*
+//				 * break because bullet is removed
+//				 * and there's no point checking collision
+//				 */
+//				break;
+//			}
+//			for (EnemyIsland e : eim.getEnemyIslands()) {
+//				if (b.collision((Sprite)e.getBody())) {
+//					playerIsland.getBullets().remove(b);
+//					i--;
+//					break;
+//				}
+//				for (Building bu : e.getBuildings()) {
+//					if (b.collision((Sprite)bu)) {
+//						System.out.println("hm?");
+//						//do stuff to building's health and stuff
+//						playerIsland.getBullets().remove(b);
+//						i--;
+//						break;
+//					}
+//				}
+//			}
+//		}
+		
 		for (int i = 0; i < playerIsland.getBullets().size(); i++) {
 			Bullet b = playerIsland.getBullets().get(i);
 			b.Update();
@@ -72,25 +104,22 @@ public class PlayerIslandManager {
 			if (b.outOfBounds()) {
 				playerIsland.getBullets().remove(b);
 				i--;
-				/*
-				 * break because bullet is removed
-				 * and there's no point checking collision
-				 */
-				break;
-			}
-			for (EnemyIsland e : eim.getEnemyIslands()) {
-				if (b.collision((Sprite)e.getBody())) {
-					playerIsland.getBullets().remove(b);
-					i--;
-					break;
-				}
-				for (Building bu : e.getBuildings()) {
-					if (b.collision((Sprite)bu)) {
-						System.out.println("hm?");
-						//do stuff to building's health and stuff
+			} else {
+				for (EnemyIsland e : eim.getEnemyIslands()) {
+					if (b.collision((Sprite)e.getBody())) {
 						playerIsland.getBullets().remove(b);
 						i--;
 						break;
+					} else {
+						for (Building bu : e.getBuildings()) {
+							if (b.collision((Sprite)bu)) {
+								System.out.println("hm?");
+								//do stuff to building's health and stuff
+								playerIsland.getBullets().remove(b);
+								i--;
+								break;
+							}
+						}
 					}
 				}
 			}

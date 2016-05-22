@@ -1,8 +1,11 @@
 
 public class TestingPad {
-	public static void main(String[] args) {
-//		for (int i = 0; i < 100; i++) {
-//			System.out.println((int)(Math.random() * 21) - 10);
-//		}
+	public static void main(String[] args) throws InterruptedException {
+		int count = 0;
+		while (true) {
+			count = ++count % 10;
+			System.out.println(count);
+			Thread.sleep(1000);
+		}
 	}
 }

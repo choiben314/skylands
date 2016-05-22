@@ -36,7 +36,6 @@ public class IslandBody extends Sprite implements Serializable {
 	public void drawIslandBody(Graphics g, boolean isPlayerBody) {
 		if (Island.LARGE && isPlayerBody) {
 			setX(Board.FRAME_WIDTH / 2);
-
 			setY((Board.FRAME_HEIGHT / 2) + (getHeight() * Island.SCALE_FACTOR / 2));
 
 			// draws from center.
