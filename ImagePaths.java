@@ -15,6 +15,13 @@ public class ImagePaths {
 	public static final String GUN1_42x42 = "Images/Gun/Gun1_42x42.png";
 	public static final String GUN1_TRANSPARENT_42x42 = "Images/Gun/Gun1_Transparent_42x42.png";
 	public static final String BULLET1 = "Images/Gun/Projectile1.png";
+
+	public static final String IBHB_GREEN = "Images/UI/Body Health Bar/Body_Health_Bar_Green_14x1.png";
+	public static final String IBHB_YELLOW = "Images/UI/Body Health Bar/Body_Health_Bar_Yellow_14x1.png";
+	public static final String IBHB_RED = "Images/UI/Body Health Bar/Body_Health_Bar_Red_14x1.png";
+	public static final String BHB_GREEN = "Images/UI/Building Health Bar/Building_Health_Bar_Green_2x1.png";
+	public static final String BHB_YELLOW = "Images/UI/Building Health Bar/Building_Health_Bar_Yellow_2x1.png";
+	public static final String BHB_RED = "Images/UI/Building Health Bar/Building_Health_Bar_Red_2x1.png";
 	
 	/*
 	 * Enemy Images

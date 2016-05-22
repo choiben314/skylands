@@ -2,6 +2,8 @@ import java.awt.Graphics;
 import java.io.Serializable;
 import java.awt.Rectangle;
 
+import javax.swing.ImageIcon;
+
 /*
  * Building acts to encapsulate(?) the legit 
  * resource producing buildings and guns
@@ -52,6 +54,25 @@ public abstract class Building extends Sprite implements Serializable {
 	 */
 	public abstract void drawBuilding(Graphics g, int bx, int by, boolean isPlayer);
 	public abstract String toString();
+	
+	public void drawHealthBar(Graphics g) {
+		int offsetX = 2, offsetY = -5, numBars = 10;
+		int startx = getGlobalX(bx) + offsetX, starty = getGlobalY(by) + offsetY;
+		int numBarsToDraw = health/numBars;
+		
+		String image;
+		if (numBarsToDraw > 4) {
+			image = ImagePaths.BHB_GREEN;
+		} else if (numBarsToDraw > 2) {
+			image = ImagePaths.BHB_YELLOW;
+		} else {
+			image = ImagePaths.BHB_RED;
+		}
+		
+		for (int i = 0; i < numBarsToDraw; i++) {
+			g.drawImage(new ImageIcon(image).getImage(), startx + i, starty, null);
+		}
+	}
 	
 	/*
 	 * These two work with images that are drawn as the small scale version,

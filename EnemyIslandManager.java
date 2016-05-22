@@ -44,7 +44,7 @@ public class EnemyIslandManager {
 				gunCount++;
 			}
 		}
-		for (int i = 0; i < gunPos.length - 1; i++) {
+		for (int i = 0; i < gunPos.length; i++) {
 			if (gunPos[i] == 1) {
 				Gun gNew = new Gun(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.GUN1_42x42, 10);
 				eb.add(gNew);

@@ -26,6 +26,28 @@ public class EnemyIsland extends Island {
 			if (b.outOfBounds()) {
 				getBullets().remove(b);
 				i--;
+			} else {
+				if (b.collision((Sprite)pim.getIsland().getBody())) {
+					pim.getIsland().getBody().takeDamage(10);
+					if (pim.getIsland().getBody().checkDead()) {
+						//ummmmmm the body is dead you lose I guess
+					}
+					getBullets().remove(b);
+					i--;
+					break;
+				} else {
+					for (Building bu : pim.getIsland().getBuildings()) {
+						if (b.collision((Sprite)bu)) {
+							bu.takeDamage(10);
+							if (bu.checkDead()) {
+								pim.getIsland().getBuildings().remove(bu);
+							}
+							getBullets().remove(b);
+							i--;
+							break;
+						}
+					}
+				}
 			}
 		}
 	}

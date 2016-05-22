@@ -4,6 +4,8 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 
+import javax.swing.ImageIcon;
+
 
 /*
  * This is a building that's actually a gun.
@@ -35,7 +37,9 @@ public class Gun extends Building implements Serializable {
 		if (isPlayerBuilding) {
 			target = Board.MOUSE_COORDS;
 		} else {
-			target = new double[] {300, 300};
+//			target = new double[] {300, 300};
+			target = new double[] {Board.PIM.getIsland().getBody().getX(), 
+					Board.PIM.getIsland().getBody().getY()};
 		}
 		
 		if (Island.LARGE && isPlayerBuilding) {
@@ -63,6 +67,29 @@ public class Gun extends Building implements Serializable {
 			int newBaseX = bx + (base.getX() / Island.SCALE_FACTOR) - base.getWidth() / 2;
 			int newBaseY = by + (base.getY() / Island.SCALE_FACTOR) - base.getHeight() / 2;
 			g.drawImage(base.getImage(), newBaseX, newBaseY, null);
+			
+			drawHealthBar(g, bx, by);
+		}
+	}
+	
+	public void drawHealthBar(Graphics g, int bx, int by) {
+		int offsetX = 2, offsetY = -5, numBars = 10;
+		int globalX = bx + (base.getX() / Island.SCALE_FACTOR) - base.getWidth() / 2;
+		int globalY = by + (base.getY() / Island.SCALE_FACTOR) - base.getHeight() / 2;
+		int startX = globalX + offsetX, starty = globalY + offsetY;
+		int numBarsToDraw = getHealth()/numBars;
+		
+		String image;
+		if (numBarsToDraw > 4) {
+			image = ImagePaths.BHB_GREEN;
+		} else if (numBarsToDraw > 2) {
+			image = ImagePaths.BHB_YELLOW;
+		} else {
+			image = ImagePaths.BHB_RED;
+		}
+		
+		for (int i = 0; i < numBarsToDraw; i++) {
+			g.drawImage(new ImageIcon(image).getImage(), startX + i, starty, null);
 		}
 	}
 	

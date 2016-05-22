@@ -37,7 +37,6 @@ public class PlayerIslandManager {
 				movePlayerIslandDown();
 			updateBullets(g, eim);
 			playerIsland.Update(g);
-//			eim.Update(g, this);
 		} else if (Board.SCENE == 2) {
 			Island.LARGE = true;
 			playerIsland.Update(g);
@@ -74,16 +73,26 @@ public class PlayerIslandManager {
 				playerIsland.getBullets().remove(b);
 				i--;
 			} else {
-				for (EnemyIsland e : eim.getEnemyIslands()) {
+//				for (EnemyIsland e : eim.getEnemyIslands()) {
+				for (int j = 0; j < eim.getEnemyIslands().size(); j++) {
+					EnemyIsland e = eim.getEnemyIslands().get(j);
 					if (b.collision((Sprite)e.getBody())) {
+						e.getBody().takeDamage(10);
+						if (e.getBody().checkDead()) {
+							System.out.println("Enemy defeated");
+							eim.getEnemyIslands().remove(e);
+						}
 						playerIsland.getBullets().remove(b);
 						i--;
 						break;
 					} else {
 						for (Building bu : e.getBuildings()) {
 							if (b.collision((Sprite)bu)) {
-								System.out.println("hm?");
 								//do stuff to building's health and stuff
+								bu.takeDamage(10);
+								if (bu.checkDead()) {
+									e.getBuildings().remove(bu);
+								}
 								playerIsland.getBullets().remove(b);
 								i--;
 								break;

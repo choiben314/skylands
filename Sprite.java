@@ -27,7 +27,7 @@ public class Sprite implements Serializable {
 		/*
 		 * If -4 something is wrong If 8 I guess things are okay
 		 */
-		//System.out.println(imageIcon.getImageLoadStatus());
+//		System.out.println(imageIcon.getImageLoadStatus());
 	}
 
 	public void getImageDimensions() {

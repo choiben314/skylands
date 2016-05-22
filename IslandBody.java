@@ -2,25 +2,22 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.io.Serializable;
 
+import javax.swing.ImageIcon;
+
 public class IslandBody extends Sprite implements Serializable {
 	private static final long serialVersionUID = -2180544871224239940L;
 	
-//	private static int HEIGHT = 231;
-//	private static int RANDOMLY_SUBTRACT = 37;
-//	private static int HEIGHT = 231 - RANDOMLY_SUBTRACT;
-//	private static int Y_OFFSET = -1 * (300 - HEIGHT);
+	public static int MAX_HEALTH = 2000;
 	
 	private int health;
 
 	public IslandBody(int x, int y, String imageName) {
 		super(x, y, imageName);
-		health = 1000;
+		health = MAX_HEALTH;
 	}
 	
 	public void Update(Graphics g) {
-		System.out.println("IslandBody" + getX() + " " + getY());
 		setRect(calcRect());
-		System.out.println("IslandRect" + getRect());
 	}
 	
 	@Override
@@ -48,8 +45,31 @@ public class IslandBody extends Sprite implements Serializable {
 			g.drawImage(getImage(), getX() - getWidth() / 2, getY()
 					- getHeight() / 2, null);
 //			 System.out.println("Blah" + getX() + " " + getY());
+			drawHealthBar(g);
 		}
 	}
+	
+	public void drawHealthBar(Graphics g) {
+		int offsetX = -140, offsetY = -194, numBars = 280;
+		int startX = getX() + offsetX, starty = getY() + offsetY;
+//		int numBarsToDraw = health/numBars;
+		int numBarsToDraw = (int)(((double)health / MAX_HEALTH) * numBars);
+		
+		String image;
+		if (numBarsToDraw > 112) {
+			image = ImagePaths.IBHB_GREEN;
+		} else if (numBarsToDraw > 56) {
+			image = ImagePaths.IBHB_YELLOW;
+		} else {
+			image = ImagePaths.IBHB_RED;
+		}
+		
+		for (int i = 0; i < numBarsToDraw; i++) {
+			g.drawImage(new ImageIcon(image).getImage(), startX + i, starty, null);
+		}
+	}
+	
+	public int getHealth() { return health; }
 
 	// affects the main body thing
 	public void takeDamage(int dmg) {

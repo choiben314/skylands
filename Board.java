@@ -23,7 +23,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public static final int FRAME_HEIGHT = 600;
 
 	public static Board BOARD;
-	public static Graphics G;
+	public static PlayerIslandManager PIM;
 	/*
 	 * Scene 0 = start screen Scene 1 = game Scene 2 = zoomed in scene of island
 	 */
@@ -47,6 +47,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		 * Variable declarations here
 		 */
 		BOARD = this;
+		
 		SCENE = 0;
 		MOUSE_COORDS = new double[] {0.0, 0.0};
 		timer = new Timer(1000, this);
@@ -54,6 +55,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 
 		turquoise = new Color(0, 255, 255);
 		playerIslandManager = new PlayerIslandManager();
+		PIM = playerIslandManager;
 		enemyIslandManager = new EnemyIslandManager();
 		buildingManager = new BuildingManager(playerIslandManager);
 		bType = "wood";
@@ -99,7 +101,6 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public void paint(Graphics g) {
 		super.paint(g);
 		BOARD = this;
-		G = g;
 		playerIslandManager.Update(g, enemyIslandManager, moveIsland, moveUp);
 		enemyIslandManager.Update(g, playerIslandManager);
 		buildingManager.Update(g, mouseEntered, bType);
@@ -207,7 +208,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		 System.out.println("Mouse at: " + e.getX() + " " + e.getY());
+//		System.out.println("Mouse at: " + e.getX() + " " + e.getY());
 		MOUSE_COORDS = new double[] { e.getX(), e.getY() };
 		e.consume();
 	}
