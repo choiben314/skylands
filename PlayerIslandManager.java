@@ -66,37 +66,6 @@ public class PlayerIslandManager {
 			}
 		}
 		
-//		for (int i = 0; i < playerIsland.getBullets().size(); i++) {
-//			Bullet b = playerIsland.getBullets().get(i);
-//			b.Update();
-//			b.drawBullet(g);
-//			if (b.outOfBounds()) {
-//				playerIsland.getBullets().remove(b);
-//				i--;
-//				/*
-//				 * break because bullet is removed
-//				 * and there's no point checking collision
-//				 */
-//				break;
-//			}
-//			for (EnemyIsland e : eim.getEnemyIslands()) {
-//				if (b.collision((Sprite)e.getBody())) {
-//					playerIsland.getBullets().remove(b);
-//					i--;
-//					break;
-//				}
-//				for (Building bu : e.getBuildings()) {
-//					if (b.collision((Sprite)bu)) {
-//						System.out.println("hm?");
-//						//do stuff to building's health and stuff
-//						playerIsland.getBullets().remove(b);
-//						i--;
-//						break;
-//					}
-//				}
-//			}
-//		}
-		
 		for (int i = 0; i < playerIsland.getBullets().size(); i++) {
 			Bullet b = playerIsland.getBullets().get(i);
 			b.Update();

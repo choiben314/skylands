@@ -25,10 +25,6 @@ public class EnemyIslandManager {
 			}
 			for (EnemyIsland enemy : enemyIslands) {
 				enemy.Update(g, pim);
-//				for (Bullet b : enemy.getBullets()) {
-//					b.Update();
-//					b.drawBullet(g);
-//				}
 			}
 		} else if (Board.SCENE == 2) {
 			
