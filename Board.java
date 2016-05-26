@@ -21,6 +21,9 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	private static final long serialVersionUID = -1543062753010683501L;
 	public static final int FRAME_WIDTH = 1000;
 	public static final int FRAME_HEIGHT = 600;
+//	public static final int FRAME_WIDTH = 1800;
+//	public static final int FRAME_HEIGHT = 1000;
+	public static final int FIRE_DELAY = 10;
 
 	public static Board BOARD;
 	public static PlayerIslandManager PIM;
@@ -39,6 +42,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	private boolean mouseEntered;
 	private boolean moveIsland;
 	private boolean moveUp;
+	private int fireCount;
 
 	private EnemyIslandManager enemyIslandManager;
 
@@ -79,6 +83,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		mouseEntered = false;
 		moveIsland = false;
 		moveUp = false;
+		fireCount = 0;
 
 		addKeyListener(new TAdapter());
 		setFocusable(true);
@@ -131,7 +136,10 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 
 		} else if (SCENE == 1) {
 			if (key == KeyEvent.VK_SPACE) {
-				playerIslandManager.setShoot(true);
+				fireCount = ++fireCount % FIRE_DELAY;
+				if (fireCount == 1) {
+					playerIslandManager.setShoot(true);
+				}
 			}
 			if (key == KeyEvent.VK_W) {
 				moveIsland = true;
@@ -172,6 +180,9 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		if (SCENE == 0) {
 
 		} else if (SCENE == 1) {
+			if (key == KeyEvent.VK_SPACE) {
+				fireCount = 0;
+			}
 			if (key == KeyEvent.VK_W) {
 				moveIsland = false;
 			} else if (key == KeyEvent.VK_S) {

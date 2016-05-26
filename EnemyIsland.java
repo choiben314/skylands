@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class EnemyIsland extends Island {
 	private static final long serialVersionUID = 2077383742968327390L;
 	
+	public static int LEFT_SPEED = 1;
 	public static int FIRE_DELAY = 200;
 	
 	private int level;
@@ -18,6 +19,7 @@ public class EnemyIsland extends Island {
 	
 	public void Update(Graphics g, PlayerIslandManager pim) {
 		super.Update(g);
+		moveLeft();
 		fireBullets(pim);
 		for (int i = 0; i < getBullets().size(); i++) {
 			Bullet b = getBullets().get(i);
@@ -68,6 +70,12 @@ public class EnemyIsland extends Island {
 		}
 		for (Building b : drawLate) {
 			b.drawBuilding(g, body.getX(), body.getY(), false);
+		}
+	}
+	
+	public void moveLeft() {
+		if (getBody().getX() > 700) {
+			getBody().setX(getBody().getX() - LEFT_SPEED);
 		}
 	}
 	

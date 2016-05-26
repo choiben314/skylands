@@ -33,7 +33,7 @@ public class EnemyIslandManager {
 	
 	public EnemyIsland makeRandomEnemyIsland() {
 		String imageName = BODY_IMAGES[(int)(Math.random() * BODY_IMAGES.length)];
-		EnemyIsland enemy = new EnemyIsland(700, 300, imageName, 7);
+		EnemyIsland enemy = new EnemyIsland(1200, 300, imageName, 7);
 		ArrayList<Building> eb = enemy.getBuildings();
 		int[] gunPos = new int[Island.MAX_BUILDING_NUM];
 		int gunCount = 0;
