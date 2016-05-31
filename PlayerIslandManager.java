@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 public class PlayerIslandManager {
 	private static String PLAYER_ISLAND_FILE = "playerIslandData.txt";
 	private static String FOLDER = "Player";
@@ -30,6 +32,7 @@ public class PlayerIslandManager {
 		if (Board.SCENE == 0) {
 			// start screen
 		} else if (Board.SCENE == 1) {
+			g.drawImage(new ImageIcon(ImagePaths.BACKGROUND).getImage(), 0, 0, null);
 			Island.LARGE = false;
 			if (moveIsland && moveUp)
 				movePlayerIslandUp();
