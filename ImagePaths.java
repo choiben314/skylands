@@ -29,6 +29,8 @@ public class ImagePaths {
 	public static final String BHB_YELLOW = "Images/UI/Building Health Bar/Building_Health_Bar_Yellow_2x1.png";
 	public static final String BHB_RED = "Images/UI/Building Health Bar/Building_Health_Bar_Red_2x1.png";
 	
+	public static final String ITEM_DROP = "Images/Island/ItemDrop_80x84.png";
+	
 	/*
 	 * Enemy Images
 	 */
