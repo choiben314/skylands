@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -21,8 +23,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	private static final long serialVersionUID = -1543062753010683501L;
 	public static final int FRAME_WIDTH = 1000;
 	public static final int FRAME_HEIGHT = 600;
-//	public static final int FRAME_WIDTH = 1800;
-//	public static final int FRAME_HEIGHT = 1000;
+	// public static final int FRAME_WIDTH = 1800;
+	// public static final int FRAME_HEIGHT = 1000;
 	public static final int FIRE_DELAY = 10;
 
 	public static Board BOARD;
@@ -39,6 +41,9 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	private BuildingManager buildingManager;
 	private String bType;
 
+	private Button changeScene;
+	private int[] origIslandCoord;
+
 	private boolean mouseEntered;
 	private boolean moveIsland;
 	private boolean moveUp;
@@ -51,9 +56,9 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		 * Variable declarations here
 		 */
 		BOARD = this;
-		
+
 		SCENE = 0;
-		MOUSE_COORDS = new double[] {0.0, 0.0};
+		MOUSE_COORDS = new double[] { 0.0, 0.0 };
 		timer = new Timer(1000, this);
 		timer.start();
 
@@ -63,6 +68,9 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		enemyIslandManager = new EnemyIslandManager();
 		buildingManager = new BuildingManager(playerIslandManager);
 		bType = "wood";
+
+		changeScene = new Button(60, 30, "CHANGE SCENE", ImagePaths.BUTTON1);
+		origIslandCoord = new int[] { 200, 300 };
 
 		// testSaving();
 		// testLoading();
@@ -94,7 +102,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	}
-	
+
 	/*
 	 * This is the game loop (like Update() in Unity)
 	 */
@@ -109,6 +117,14 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		playerIslandManager.Update(g, enemyIslandManager, moveIsland, moveUp);
 		enemyIslandManager.Update(g, playerIslandManager);
 		buildingManager.Update(g, mouseEntered, bType);
+		g.drawImage(changeScene.getImage(),
+				changeScene.getX() - changeScene.getWidth() / 2,
+				changeScene.getY() - changeScene.getHeight() / 2, null);
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
+		g.drawString(changeScene.getText(),
+				changeScene.getX() - 40,
+				changeScene.getY() + 5);
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -131,7 +147,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		} else if (key == KeyEvent.VK_2) {
 			SCENE = 2;
 		}
-		
+
 		if (SCENE == 0) {
 
 		} else if (SCENE == 1) {
@@ -212,14 +228,30 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	}
 
 	public void mouseReleased(MouseEvent e) {
+		if (changeScene.mouseIntersect(e.getX(), e.getY())) {
+			if (Board.SCENE == 0 || Board.SCENE == 2) {
+				Board.SCENE = 1;
+				playerIslandManager.getIsland().getBody()
+						.setX(origIslandCoord[0]);
+				playerIslandManager.getIsland().getBody()
+						.setY(origIslandCoord[1]);
+			} else {
+				Board.SCENE = 2;
+				origIslandCoord = new int[] {
+						playerIslandManager.getIsland().getBody().getX(),
+						playerIslandManager.getIsland().getBody().getY() };
+			}
+		}
+
 		if (Board.SCENE == 2) {
 			BuildingManager.placeBuilding(e.getX(), e.getY(), bType);
 			e.consume();
 		}
+
 	}
 
 	public void mouseMoved(MouseEvent e) {
-//		System.out.println("Mouse at: " + e.getX() + " " + e.getY());
+		// System.out.println("Mouse at: " + e.getX() + " " + e.getY());
 		MOUSE_COORDS = new double[] { e.getX(), e.getY() };
 		e.consume();
 	}
@@ -249,12 +281,13 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		ArrayList<Building> bs = pi.getBuildings();
 		for (Building b : bs) {
 			if (b instanceof ResourceProducer) {
-				System.out.println("Produces: " + ((ResourceProducer)b).getProduces());
+				System.out.println("Produces: "
+						+ ((ResourceProducer) b).getProduces());
 			} else {
-				System.out.println("Power is: " + ((Gun)b).getPower());
+				System.out.println("Power is: " + ((Gun) b).getPower());
 			}
 		}
-		
+
 		System.out.println(playerIslandManager.getIsland());
 		System.exit(0);
 	}
