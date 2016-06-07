@@ -22,6 +22,7 @@ public class DropManager {
 	}
 	
 	public void drawDrops(Graphics g) {
+		System.out.println(Board.PIM.getIsland().getBody().getX() + " " + Board.PIM.getIsland().getBody().getY());
 		for (int i = 0; i < drops.size(); i++) {
 			if (drops.get(i).outOfBounds()) {
 				//add materials here
