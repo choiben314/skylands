@@ -28,6 +28,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 
 	public static Board BOARD;
 	public static PlayerIslandManager PIM;
+	public static MaterialsManager MM;
+	public static DropManager DM;
 	/*
 	 * Scene 0 = start screen Scene 1 = game Scene 2 = zoomed in scene of island
 	 */
@@ -52,6 +54,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		 * Variable declarations here
 		 */
 		BOARD = this;
+		MM = new MaterialsManager();
+		DM = new DropManager();
 		
 		SCENE = 0;
 		MOUSE_COORDS = new double[] {0.0, 0.0};
@@ -110,6 +114,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		playerIslandManager.Update(g, enemyIslandManager, moveIsland, moveUp);
 		enemyIslandManager.Update(g, playerIslandManager);
 		buildingManager.Update(g, mouseEntered, bType);
+		DM.Update(g);
 	}
 
 	public void actionPerformed(ActionEvent e) {

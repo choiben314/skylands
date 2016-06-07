@@ -83,6 +83,7 @@ public class PlayerIslandManager {
 						e.getBody().takeDamage(10);
 						if (e.getBody().checkDead()) {
 							System.out.println("Enemy defeated");
+							Board.DM.addDrop(e.getBody().getX(), e.getBody().getY());
 							eim.getEnemyIslands().remove(e);
 						}
 						playerIsland.getBullets().remove(b);
