@@ -1,3 +1,5 @@
+import java.awt.Font;
+import java.awt.Graphics;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,6 +12,17 @@ public class MaterialsManager {
 	private static String PLAYER_MATERIALS_FILE = "playerMaterialsData.txt";
 	private static String FOLDER = "Player";
 	private static HashMap<String, Integer> materials = new HashMap<String, Integer>();
+	private static int DIST_TO_TOP = 20;
+	private static int SPACING = 20;
+	
+	public void Update(Graphics g) {
+		int count = 0;
+		g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+		for (String key : materials.keySet()) {
+			g.drawString(key.toUpperCase() + ": " + materials.get(key), 400, DIST_TO_TOP + SPACING * count);
+			count++;
+		}
+	}
 
 	public int getResource(String res) {
 		res = res.toLowerCase();
@@ -25,6 +38,15 @@ public class MaterialsManager {
 	public void setResource(String res, Integer val) {
 		res = res.toLowerCase();
 		materials.put(res, val);
+	}
+	
+	public void addResource(String res, Integer val) {
+		if (!materials.containsKey(res)) {
+			res = res.toLowerCase();
+			materials.put(res, val);
+		} else {
+			materials.put(res, materials.get(res) + val);
+		}
 	}
 
 	public void saveMaterials() {

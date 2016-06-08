@@ -10,31 +10,32 @@ public class DropManager {
 		drops = new ArrayList<Drop>();
 	}
 	
-	public void Update(Graphics g) {
+	public void Update(Graphics g, PlayerIslandManager pim) {
 		updateRects();
-		drawDrops(g);
+		drawDrops(g, pim);
 	}
 	
 	public void updateRects() {
 		for (Drop d : drops) {
-			d.calcRect();
+			d.setRect(d.calcRect());
 		}
 	}
 	
-	public void drawDrops(Graphics g) {
-		System.out.println(Board.PIM.getIsland().getBody().getX() + " " + Board.PIM.getIsland().getBody().getY());
+	public void drawDrops(Graphics g, PlayerIslandManager pim) {
+//		System.out.println(Board.PIM.getIsland().getBody().getX() + " " + Board.PIM.getIsland().getBody().getY());
 		for (int i = 0; i < drops.size(); i++) {
-			if (drops.get(i).outOfBounds()) {
-				//add materials here
-				System.out.println("removed drop");
+			Drop d = drops.get(i);
+			if (d.outOfBounds()) {
 				drops.remove(i);
 				i--;
-			} else if (drops.get(i).collision((Sprite)Board.PIM.getIsland().getBody())) {
-				System.out.println("touched body");
+				break;
+			} else if (d.collision((Sprite)Board.PIM.getIsland().getBody())) {
+				//add materials here
+				Board.MM.addResource("wood", (int)(Math.random() * 10));
+				Board.MM.addResource("metal", (int)(Math.random() * 10));
 				drops.remove(i);
 				i--;
 			} else {
-				Drop d = drops.get(i);
 				d.setX(d.getX() - SPEED);
 				g.drawImage(d.getImage(), d.getX() - d.getWidth(), d.getY() - d.getHeight(), null);
 			}

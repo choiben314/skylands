@@ -55,6 +55,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		 */
 		BOARD = this;
 		MM = new MaterialsManager();
+		MM.setResource("wood", 12);
+		MM.setResource("metal", 12);
 		DM = new DropManager();
 		
 		SCENE = 0;
@@ -114,7 +116,9 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		playerIslandManager.Update(g, enemyIslandManager, moveIsland, moveUp);
 		enemyIslandManager.Update(g, playerIslandManager);
 		buildingManager.Update(g, mouseEntered, bType);
-		DM.Update(g);
+//		DM.Update(g);
+		DM.Update(g, playerIslandManager);
+		MM.Update(g);
 	}
 
 	public void actionPerformed(ActionEvent e) {
