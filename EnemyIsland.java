@@ -83,7 +83,8 @@ public class EnemyIsland extends Island {
 				if (b.collision((Sprite)pim.getIsland().getBody())) {
 					pim.getIsland().getBody().takeDamage(10);
 					if (pim.getIsland().getBody().checkDead()) {
-						//ummmmmm the body is dead you lose I guess
+//						ummmmmm the body is dead you lose I guess
+						Board.SCENE = 3;
 					}
 					getBullets().remove(b);
 					i--;
