@@ -10,7 +10,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -32,6 +31,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public static DropManager DM;
 	/*
 	 * Scene 0 = start screen Scene 1 = game Scene 2 = zoomed in scene of island
+	 * Scene 3 = game over?
 	 */
 	public static int SCENE;
 	public static double[] MOUSE_COORDS;

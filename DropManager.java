@@ -11,8 +11,10 @@ public class DropManager {
 	}
 	
 	public void Update(Graphics g, PlayerIslandManager pim) {
-		updateRects();
-		drawDrops(g, pim);
+		if (Board.SCENE == 1) {
+			updateRects();
+			drawDrops(g, pim);
+		}
 	}
 	
 	public void updateRects() {
@@ -22,7 +24,6 @@ public class DropManager {
 	}
 	
 	public void drawDrops(Graphics g, PlayerIslandManager pim) {
-//		System.out.println(Board.PIM.getIsland().getBody().getX() + " " + Board.PIM.getIsland().getBody().getY());
 		for (int i = 0; i < drops.size(); i++) {
 			Drop d = drops.get(i);
 			if (d.outOfBounds()) {
@@ -43,6 +44,7 @@ public class DropManager {
 	}
 	
 	public void addDrop(int x, int y) {
-		drops.add(new Drop(x, y, ImagePaths.ITEM_DROP));
+		int yoffset = (int)(Math.random() * 200) - 100;
+		drops.add(new Drop(x, y + yoffset, ImagePaths.ITEM_DROP));
 	}
 }

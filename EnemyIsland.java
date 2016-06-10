@@ -6,15 +6,57 @@ public class EnemyIsland extends Island {
 	private static final long serialVersionUID = 2077383742968327390L;
 	
 	public static int LEFT_SPEED = 1;
+	public static int NUM_BURST = 5;
 	public static int FIRE_DELAY = 200;
+	public static int FIRE_BURST_DELAY = 50;
 	
 	private int level;
 	private int fireTime;
+	private boolean burst;
+	private int burstCount;
+	
+	public void fireBullets(PlayerIslandManager pim) {
+//		if (burst) {
+//			System.out.println("burst");
+//			fireTime = fireTime++ % FIRE_BURST_DELAY;
+//		} else {
+//			System.out.println("here");
+//			fireTime = ++fireTime % FIRE_DELAY;
+//		}
+//		
+//		if (fireTime == 0) {
+//			System.out.println("here too");
+//			if (!burst) {
+//				burst = true;
+//			} else {
+//				burstCount++;
+//				if (burstCount == NUM_BURST) {
+//					System.out.println("is below");
+//					burst = false;
+//					burstCount = 0;
+////					fireTime++;
+//				}
+//				addBullets(pim.getIsland());
+//			}
+//		}
+//		System.out.println(fireTime + "  asdf" + burstCount + " " + burst);
+		if (burst) {
+			
+		} else {
+			fireTime = ++fireTime % FIRE_DELAY;
+			if (fireTime == 1) {
+				addBullets(pim.getIsland());
+//				burst = true;
+			}
+		}
+	}
 	
 	public EnemyIsland(int x, int y, String imageName, int _level) {
 		super(x, y, imageName);
 		level = _level;
 		fireTime = 0;
+		burst = false;
+		burstCount = 0;
 	}
 	
 	public void Update(Graphics g, PlayerIslandManager pim) {
@@ -76,13 +118,6 @@ public class EnemyIsland extends Island {
 	public void moveLeft() {
 		if (getBody().getX() > 700) {
 			getBody().setX(getBody().getX() - LEFT_SPEED);
-		}
-	}
-	
-	public void fireBullets(PlayerIslandManager pim) {
-		fireTime = ++fireTime % FIRE_DELAY;
-		if (fireTime == 0) {
-			addBullets(pim.getIsland());
 		}
 	}
 	

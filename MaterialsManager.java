@@ -16,11 +16,13 @@ public class MaterialsManager {
 	private static int SPACING = 20;
 	
 	public void Update(Graphics g) {
-		int count = 0;
-		g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
-		for (String key : materials.keySet()) {
-			g.drawString(key.toUpperCase() + ": " + materials.get(key), 400, DIST_TO_TOP + SPACING * count);
-			count++;
+		if (Board.SCENE == 1 || Board.SCENE == 2) {
+			int count = 0;
+			g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+			for (String key : materials.keySet()) {
+				g.drawString(key.toUpperCase() + ": " + materials.get(key), 400, DIST_TO_TOP + SPACING * count);
+				count++;
+			}
 		}
 	}
 
