@@ -47,6 +47,10 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	private Button changeScene;
 	private int[] origIslandCoord;
 
+	private Button woodBuy;
+	private Button gunBuy;
+	private Button factoryBuy;
+
 	private boolean mouseEntered;
 	private boolean moveIsland;
 	private boolean moveUp;
@@ -75,8 +79,15 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		buildingManager = new BuildingManager(playerIslandManager);
 		bType = "wood";
 
-		changeScene = new Button(60, 30, "CHANGE SCENE", ImagePaths.BUTTON1);
+		changeScene = new Button(60, 30, "   BUILD", ImagePaths.BUTTON1, null);
 		origIslandCoord = new int[] { 200, 300 };
+
+		woodBuy = new Button(180, 60, "  FOREST\n\n\n\n\n PRICE: 5 WOOD",
+				ImagePaths.BUTTON2, ImagePaths.WOOD_PRODUCER);
+		gunBuy = new Button(300, 60, "  GUN\n\n\n\n\n PRICE: 10 METAL",
+				ImagePaths.BUTTON2, ImagePaths.GUN1_42x42);
+		factoryBuy = new Button(420, 60, "  FACTORY\n\n\n\n\n PRICE: 20 METAL",
+				ImagePaths.BUTTON2, ImagePaths.METAL_PRODUCER);
 
 		// testSaving();
 		// testLoading();
@@ -124,13 +135,17 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		enemyIslandManager.Update(g, playerIslandManager);
 		buildingManager.Update(g, mouseEntered, bType);
 
-		g.drawImage(changeScene.getImage(),
-				changeScene.getX() - changeScene.getWidth() / 2,
-				changeScene.getY() - changeScene.getHeight() / 2, null);
-		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
-		g.drawString(changeScene.getText(),
-				changeScene.getX() - 40,
-				changeScene.getY() + 5);
+		if (Board.SCENE == 2) {
+			changeScene.setText(" GO BACK");
+			drawBuyButton(g, woodBuy);
+			drawBuyButton(g, gunBuy);
+			drawBuyButton(g, factoryBuy);
+			drawStaticButton(g, changeScene);
+		} else if (Board.SCENE == 1) {
+			changeScene.setText("   BUILD");
+			drawStaticButton(g, changeScene);
+		}
+
 		DM.Update(g);
 
 	}
@@ -172,26 +187,26 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 				moveIsland = true;
 				moveUp = false;
 			}
-		} else if (SCENE == 2) {
-			if (key == KeyEvent.VK_J) {
-				bType = "wood";
-			} else if (key == KeyEvent.VK_K) {
-				bType = "gun";
-			}
-			// if (key == KeyEvent.VK_B) {
-			// ResourceProducer rNew = new
-			// ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * (k++),
-			// Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
-			// playerIslandManager.getIsland().addBuilding(rNew);
-			// }
-			if (key == KeyEvent.VK_D) {
-				ArrayList<Building> b = playerIslandManager.getIsland()
-						.getBuildings();
-				if (b.size() > 0) {
-					b.remove(b.size() - 1);
-				}
-			}
 		}
+		// else if (SCENE == 2) {
+		// if (key == KeyEvent.VK_J) {
+		// bType = "wood";
+		// } else if (key == KeyEvent.VK_K) {
+		// bType = "gun";
+		// }
+		// // if (key == KeyEvent.VK_B) {
+		// // ResourceProducer rNew = new
+		// // ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * (k++),
+		// // Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
+		// // playerIslandManager.getIsland().addBuilding(rNew);
+		// // }
+		// if (key == KeyEvent.VK_D) {
+		// ArrayList<Building> b = playerIslandManager.getIsland()
+		// .getBuildings();
+		// if (b.size() > 0) {
+		// b.remove(b.size() - 1);
+		// }
+		// }
 		e.consume();
 	}
 
@@ -249,13 +264,16 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 						playerIslandManager.getIsland().getBody().getX(),
 						playerIslandManager.getIsland().getBody().getY() };
 			}
-		}
-
-		if (Board.SCENE == 2) {
+		} else if (woodBuy.mouseIntersect(e.getX(), e.getY())) {
+			bType = "wood";
+		} else if (factoryBuy.mouseIntersect(e.getX(), e.getY())) {
+			bType = "metal";
+		} else if (gunBuy.mouseIntersect(e.getX(), e.getY())) {
+			bType = "gun";
+		} else if (Board.SCENE == 2) {
 			BuildingManager.placeBuilding(e.getX(), e.getY(), bType);
 			e.consume();
 		}
-
 	}
 
 	public void mouseMoved(MouseEvent e) {
@@ -298,5 +316,39 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 
 		System.out.println(playerIslandManager.getIsland());
 		System.exit(0);
+	}
+
+	private void drawStaticButton(Graphics g, Button b) {
+		g.drawImage(b.getImage(), b.getX() - b.getWidth() / 2,
+				b.getY() - b.getHeight() / 2, null);
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
+		g.drawString(b.getText(), b.getX() - 25, b.getY() + 5);
+	}
+
+	private void drawBuyButton(Graphics g, Button b) {
+
+		g.drawImage(b.getImage(), b.getX() - b.getWidth() / 2,
+				b.getY() - b.getHeight() / 2, null);
+
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
+		drawString(g, b.getText(), b.getX() - 41, b.getY() - 40);
+
+		Sprite preview = new Sprite(b.getX(), b.getY(), b.getImageName());
+
+		if (b.getText().toLowerCase().contains("gun")) {
+			g.drawImage(preview.getImage(), preview.getX() - 22,
+					preview.getY() - 20, null);
+		} else {
+			g.drawImage(preview.getImage(), preview.getX() - 22,
+					preview.getY() - 20, preview.getWidth()
+							* Island.SCALE_FACTOR, preview.getHeight()
+							* Island.SCALE_FACTOR, null);
+		}
+	}
+
+	private void drawString(Graphics g, String text, int x, int y) {
+		for (String line : text.split("\n")) {
+			g.drawString(line, x, y += g.getFontMetrics().getHeight());
+		}
 	}
 }

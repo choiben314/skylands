@@ -20,10 +20,14 @@ public class BuildingManager {
 		int sx = Island.BUILDING_POS[sIndex][0];
 		int sy = Island.BUILDING_POS[sIndex][1];
 
-		if (type.equals("wood")) {
+		if (type.equals("wood") || type.equals("metal")) {
 			if (checkCoords(sx, sy, pim.getIsland().getBuildings())) {
+				String imagePath = ImagePaths.WOOD_PRODUCER;
+				if (type.equals("metal")) {
+					imagePath = ImagePaths.METAL_PRODUCER;
+				}
 				pim.getIsland().addBuilding(
-						new ResourceProducer(sx, sy, ImagePaths.BUILDING_TEST,
+						new ResourceProducer(sx, sy, imagePath,
 								type));
 			}
 		} else if (type.equals("gun")) {
@@ -65,8 +69,12 @@ public class BuildingManager {
 			String ip = null;
 
 			if (type.equals("wood")) {
-				ip = ImagePaths.BUILDING_TEST_TRANSPARENT;
-			} else if (type.equals("gun")) {
+				ip = ImagePaths.WOOD_PRODUCER_TRANSPARENT;
+			}
+			else if (type.equals("metal")) {
+				ip = ImagePaths.METAL_PRODUCER_TRANSPARENT;
+			}
+			else if (type.equals("gun")) {
 				ip = ImagePaths.GUN1_TRANSPARENT_42x42;
 			}
 

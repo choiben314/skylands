@@ -15,6 +15,7 @@ public class Main extends JFrame {
 		frame.add(board);
 		
 		frame.setSize(Board.FRAME_WIDTH, Board.FRAME_HEIGHT);
+		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
