@@ -10,30 +10,33 @@ public class DropManager {
 		drops = new ArrayList<Drop>();
 	}
 	
-	public void Update(Graphics g) {
-		updateRects();
-		drawDrops(g);
+	public void Update(Graphics g, PlayerIslandManager pim) {
+		if (Board.SCENE == 1) {
+			updateRects();
+			drawDrops(g, pim);
+		}
 	}
 	
 	public void updateRects() {
 		for (Drop d : drops) {
-			d.calcRect();
+			d.setRect(d.calcRect());
 		}
 	}
 	
-	public void drawDrops(Graphics g) {
+	public void drawDrops(Graphics g, PlayerIslandManager pim) {
 		for (int i = 0; i < drops.size(); i++) {
-			if (drops.get(i).outOfBounds()) {
-				//add materials here
-				System.out.println("removed drop");
+			Drop d = drops.get(i);
+			if (d.outOfBounds()) {
 				drops.remove(i);
 				i--;
-			} else if (drops.get(i).collision((Sprite)Board.PIM.getIsland().getBody())) {
-				System.out.println("touched body");
+				break;
+			} else if (d.collision((Sprite)Board.PIM.getIsland().getBody())) {
+				//add materials here
+				Board.MM.addResource("wood", (int)(Math.random() * 10));
+				Board.MM.addResource("metal", (int)(Math.random() * 10));
 				drops.remove(i);
 				i--;
 			} else {
-				Drop d = drops.get(i);
 				d.setX(d.getX() - SPEED);
 				g.drawImage(d.getImage(), d.getX() - d.getWidth(), d.getY() - d.getHeight(), null);
 			}
@@ -41,6 +44,7 @@ public class DropManager {
 	}
 	
 	public void addDrop(int x, int y) {
-		drops.add(new Drop(x, y, ImagePaths.ITEM_DROP));
+		int yoffset = (int)(Math.random() * 200) - 100;
+		drops.add(new Drop(x, y + yoffset, ImagePaths.ITEM_DROP));
 	}
 }

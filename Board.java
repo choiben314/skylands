@@ -12,7 +12,6 @@ import java.awt.event.MouseMotionListener;
 
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -34,6 +33,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	public static DropManager DM;
 	/*
 	 * Scene 0 = start screen Scene 1 = game Scene 2 = zoomed in scene of island
+	 * Scene 3 = game over?
 	 */
 	public static int SCENE;
 	public static double[] MOUSE_COORDS;
@@ -65,6 +65,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		BOARD = this;
 
 		MM = new MaterialsManager();
+		MM.setResource("wood", 12);
+		MM.setResource("metal", 12);
 		DM = new DropManager();
 
 		SCENE = 0;
@@ -146,8 +148,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 			drawStaticButton(g, changeScene);
 		}
 
-		DM.Update(g);
-
+		DM.Update(g, playerIslandManager);
+		MM.Update(g);
 	}
 
 	public void actionPerformed(ActionEvent e) {
