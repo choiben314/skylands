@@ -1,3 +1,11 @@
+For Mr. Harris to read:
+-> When you start, press 1 to switch to the actual game... The screen that
+you see when you start should be the start screen, but we didn't have time to
+make that.
+-> If nothing shows up, make sure that the Images folder is in the right place
+or actually in the project folder...
+-> Press space to fire and move the mouse around to target the enemy.
+
 IMPORTANTISH
 -> When you are making a new class 
 and you're expecting to save an object of 

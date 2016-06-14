@@ -42,6 +42,9 @@ public class Island implements Serializable {
 		body.Update(g);
 		for (Building b : buildings) {
 			b.Update(g, body.getX(), body.getY());
+			if (b instanceof ResourceProducer && Board.SCENE == 1) {
+				((ResourceProducer)b).addMaterials();
+			}
 		}
 		drawIsland(g);
 	}
