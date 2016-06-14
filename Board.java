@@ -47,11 +47,11 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	private Button changeScene;
 	private int[] origIslandCoord;
 
+	private int[] prices;
+
 	private Button woodBuy;
 	private Button gunBuy;
 	private Button factoryBuy;
-
-	private int[] prices;
 
 	private boolean mouseEntered;
 	private boolean moveIsland;
@@ -67,8 +67,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		BOARD = this;
 
 		MM = new MaterialsManager();
-		MM.setResource("wood", 12);
-		MM.setResource("metal", 12);
+		MM.setResource("wood", 1200);
+		MM.setResource("metal", 1200);
 		DM = new DropManager();
 
 		SCENE = 0;
@@ -86,15 +86,16 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		changeScene = new Button(60, 30, "   BUILD", ImagePaths.BUTTON1, null);
 		origIslandCoord = new int[] { 200, 300 };
 
-		woodBuy = new Button(180, 60, "  FOREST\n\n\n\n\n\n PRICE: 5 WOOD",
-				ImagePaths.BUTTON2, ImagePaths.WOOD_PRODUCER);
-		gunBuy = new Button(300, 60, "  GUN\n\n\n\n\n\n PRICE: 10 METAL",
-				ImagePaths.BUTTON2, ImagePaths.GUN1_42x42);
-		factoryBuy = new Button(420, 60,
-				"  FACTORY\n\n\n\n\n\n PRICE: 20 METAL", ImagePaths.BUTTON2,
-				ImagePaths.METAL_PRODUCER);
+		prices = new int[] { 15, 100, 50, 40 }; // forest, gun, factory is last
+												// two
 
-		prices = new int[] { 5, 10, 20 }; // forest, gun, factory
+		woodBuy = new Button(180, 60, "  FOREST\n\n\n\n\n PRICE: " + prices[0]
+				+ " WOOD", ImagePaths.BUTTON2, ImagePaths.WOOD_PRODUCER);
+		gunBuy = new Button(300, 60, "  GUN\n\n\n\n\n PRICE:" + prices[1]
+				+ " METAL", ImagePaths.BUTTON2, ImagePaths.GUN1_42x42);
+		factoryBuy = new Button(420, 60, "  FACTORY\n\n\n\n\n PRICE: "
+				+ prices[2] + " WOOD\n           " + prices[3] + " METAL",
+				ImagePaths.BUTTON2, ImagePaths.METAL_PRODUCER);
 
 		// testSaving();
 		// testLoading();
@@ -209,13 +210,13 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		// // Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
 		// // playerIslandManager.getIsland().addBuilding(rNew);
 		// // }
-		// if (key == KeyEvent.VK_D) {
-		// ArrayList<Building> b = playerIslandManager.getIsland()
-		// .getBuildings();
-		// if (b.size() > 0) {
-		// b.remove(b.size() - 1);
-		// }
-		// }
+		if (key == KeyEvent.VK_D) {
+			ArrayList<Building> b = playerIslandManager.getIsland()
+					.getBuildings();
+			if (b.size() > 0) {
+				b.remove(b.size() - 1);
+			}
+		}
 		e.consume();
 	}
 
@@ -287,9 +288,10 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 				if (bType == "wood" && MM.checkValue("wood", prices[0])) {
 					MM.addResource("wood", -prices[0]);
 					BuildingManager.placeBuilding(e.getX(), e.getY(), bType);
-				} else if (bType == "metal"
-						&& MM.checkValue("metal", prices[2])) {
-					MM.addResource("metal", -prices[2]);
+				} else if (bType == "metal" && MM.checkValue("wood", prices[2])
+						&& MM.checkValue("metal", prices[3])) {
+					MM.addResource("wood", -prices[2]);
+					MM.addResource("metal", -prices[3]);
 					BuildingManager.placeBuilding(e.getX(), e.getY(), bType);
 				} else if (bType == "gun" && MM.checkValue("metal", prices[1])) {
 					MM.addResource("metal", -prices[1]);
@@ -361,10 +363,10 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 
 		if (b.getText().toLowerCase().contains("gun")) {
 			g.drawImage(preview.getImage(), preview.getX() - 22,
-					preview.getY() - 20, null);
+					preview.getY() - 30, null);
 		} else {
 			g.drawImage(preview.getImage(), preview.getX() - 22,
-					preview.getY() - 20, preview.getWidth()
+					preview.getY() - 30, preview.getWidth()
 							* Island.SCALE_FACTOR, preview.getHeight()
 							* Island.SCALE_FACTOR, null);
 		}

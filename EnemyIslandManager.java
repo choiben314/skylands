@@ -50,8 +50,14 @@ public class EnemyIslandManager {
 				Gun gNew = new Gun(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.GUN1_42x42, 10);
 				eb.add(gNew);
 			} else {
-				ResourceProducer rNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
-				eb.add(rNew);
+				int type = (int)(Math.random() * 2);
+				if (type == 0) {
+					ResourceProducer wNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.WOOD_PRODUCER, "wood");
+					eb.add(wNew);
+				} else if (type == 1) {
+					ResourceProducer mNew = new ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * i, Island.FIRST_BUILDING_POS[1], ImagePaths.METAL_PRODUCER, "metal");
+					eb.add(mNew);
+				}
 			}
 		}
 		return enemy;

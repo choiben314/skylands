@@ -87,6 +87,7 @@ public class Island implements Serializable {
 	}
 
 	public void moveVert(int amt) {
+		if (body.getY() - amt > 25 && body.getY() - amt < Board.FRAME_HEIGHT)
 		body.setY(body.getY() - amt);
 	}
 
