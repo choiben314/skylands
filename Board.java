@@ -67,8 +67,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		BOARD = this;
 
 		MM = new MaterialsManager();
-		MM.setResource("wood", 12);
-		MM.setResource("metal", 12);
+		MM.setResource("wood", 1200);
+		MM.setResource("metal", 1200);
 		DM = new DropManager();
 
 		SCENE = 0;

@@ -69,7 +69,12 @@ public class EnemyIsland extends Island {
 	}
 	
 	public void Update(Graphics g, PlayerIslandManager pim) {
-		super.Update(g);
+//		super.Update(g);
+		getBody().Update(g);
+		for (Building b : getBuildings()) {
+			b.Update(g, getBody().getX(), getBody().getY());
+		}
+		drawIsland(g);
 		moveLeft();
 		fireBullets(pim);
 		for (int i = 0; i < getBullets().size(); i++) {

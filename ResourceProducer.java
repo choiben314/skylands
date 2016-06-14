@@ -6,7 +6,11 @@ import java.io.Serializable;
  */
 public class ResourceProducer extends Building implements Serializable {
 	private static final long serialVersionUID = 3858208105148098762L;
-	String produces;
+	
+	private static int MAX_TIME = 200; 
+	private int time;
+	
+	private String produces;
 
 	/*
 	 * Can add variables for what it produces, how much it produces, and how
@@ -15,6 +19,7 @@ public class ResourceProducer extends Building implements Serializable {
 
 	public ResourceProducer(int x, int y, String imageName, String _produces) {
 		super(x, y, imageName);
+		time = 0;
 		produces = _produces;
 	}
 
@@ -44,6 +49,13 @@ public class ResourceProducer extends Building implements Serializable {
 				getGlobalY(by), 
 				null);
 			drawHealthBar(g);
+		}
+	}
+	
+	public void addMaterials() {
+		time = ++time % MAX_TIME;
+		if (time == 1) {
+			Board.MM.addResource(produces, 1);
 		}
 	}
 
