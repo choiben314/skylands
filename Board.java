@@ -176,6 +176,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 			SCENE = 1;
 		} else if (key == KeyEvent.VK_2) {
 			SCENE = 2;
+		} else if (key == KeyEvent.VK_3) {
+			SCENE = 3;
 		}
 
 		if (SCENE == 0) {

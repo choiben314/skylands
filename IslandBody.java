@@ -8,16 +8,20 @@ public class IslandBody extends Sprite implements Serializable {
 	private static final long serialVersionUID = -2180544871224239940L;
 	
 	public static int MAX_HEALTH = 2000;
+	public static int MAX_TIME = 50;
 	
 	private int health;
+	private int time;
 
 	public IslandBody(int x, int y, String imageName) {
 		super(x, y, imageName);
 		health = MAX_HEALTH;
+		time = 0;
 	}
 	
 	public void Update(Graphics g) {
 		setRect(calcRect());
+		regen();
 	}
 	
 	@Override
@@ -46,6 +50,21 @@ public class IslandBody extends Sprite implements Serializable {
 					- getHeight() / 2, null);
 //			 System.out.println("Blah" + getX() + " " + getY());
 			drawHealthBar(g);
+		}
+	}
+	
+	public void regen() {
+		time = ++time % MAX_TIME;
+		if (time == 1) {
+			health = clamp(health + 1, MAX_HEALTH);
+		}
+	}
+	
+	public static int clamp(int num, int max) {
+		if (num > max) {
+			return max;
+		} else {
+			return num;
 		}
 	}
 	

@@ -1,4 +1,6 @@
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -45,6 +47,19 @@ public class PlayerIslandManager {
 		} else if (Board.SCENE == 2) {
 			Island.LARGE = true;
 			playerIsland.Update(g);
+		} else if (Board.SCENE == 3) {
+			g.drawImage(new ImageIcon(ImagePaths.ISLAND_BODY_1).getImage(), 10, 10, null);
+			String text = "Game Over";
+			String text2 = "Press q to quit.";
+			g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
+			Rectangle2D bounds = g.getFontMetrics().getStringBounds(text, g);
+			int width = (int)(bounds.getWidth());
+			int height = (int)(bounds.getHeight());
+			g.drawString(text, Board.FRAME_WIDTH/2 - width/2, Board.FRAME_HEIGHT/2 - height/2);
+			bounds = g.getFontMetrics().getStringBounds(text2, g);
+			width = (int)(bounds.getWidth());
+			height = (int)(bounds.getHeight());
+			g.drawString(text2, Board.FRAME_WIDTH/2 - width/2, Board.FRAME_HEIGHT/2 - height/2 + 50);
 		}
 	}
 	

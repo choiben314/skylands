@@ -7,8 +7,8 @@ public class EnemyIsland extends Island {
 	
 	public static int LEFT_SPEED = 1;
 	public static int NUM_BURST = 5;
-	public static int FIRE_DELAY = 200;
-	public static int FIRE_BURST_DELAY = 50;
+	public static int FIRE_DELAY = 400;
+	public static int FIRE_BURST_DELAY = 25;
 	
 	private int level;
 	private int fireTime;
@@ -41,12 +41,21 @@ public class EnemyIsland extends Island {
 //		}
 //		System.out.println(fireTime + "  asdf" + burstCount + " " + burst);
 		if (burst) {
-			
+			fireTime = ++fireTime % FIRE_BURST_DELAY;
+			if (fireTime == 1) {
+				addBullets(pim.getIsland());
+				burstCount++;
+				if (burstCount > NUM_BURST) {
+					burstCount = 0;
+					fireTime = 2;
+					burst = false;
+				}
+			}
 		} else {
 			fireTime = ++fireTime % FIRE_DELAY;
 			if (fireTime == 1) {
-				addBullets(pim.getIsland());
-//				burst = true;
+//				addBullets(pim.getIsland());
+				burst = true;
 			}
 		}
 	}
@@ -74,7 +83,8 @@ public class EnemyIsland extends Island {
 				if (b.collision((Sprite)pim.getIsland().getBody())) {
 					pim.getIsland().getBody().takeDamage(10);
 					if (pim.getIsland().getBody().checkDead()) {
-						//ummmmmm the body is dead you lose I guess
+//						ummmmmm the body is dead you lose I guess
+						Board.SCENE = 3;
 					}
 					getBullets().remove(b);
 					i--;
