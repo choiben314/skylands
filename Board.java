@@ -51,6 +51,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	private Button gunBuy;
 	private Button factoryBuy;
 
+	private int[] prices;
+
 	private boolean mouseEntered;
 	private boolean moveIsland;
 	private boolean moveUp;
@@ -84,12 +86,15 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		changeScene = new Button(60, 30, "   BUILD", ImagePaths.BUTTON1, null);
 		origIslandCoord = new int[] { 200, 300 };
 
-		woodBuy = new Button(180, 60, "  FOREST\n\n\n\n\n PRICE: 5 WOOD",
+		woodBuy = new Button(180, 60, "  FOREST\n\n\n\n\n\n PRICE: 5 WOOD",
 				ImagePaths.BUTTON2, ImagePaths.WOOD_PRODUCER);
-		gunBuy = new Button(300, 60, "  GUN\n\n\n\n\n PRICE: 10 METAL",
+		gunBuy = new Button(300, 60, "  GUN\n\n\n\n\n\n PRICE: 10 METAL",
 				ImagePaths.BUTTON2, ImagePaths.GUN1_42x42);
-		factoryBuy = new Button(420, 60, "  FACTORY\n\n\n\n\n PRICE: 20 METAL",
-				ImagePaths.BUTTON2, ImagePaths.METAL_PRODUCER);
+		factoryBuy = new Button(420, 60,
+				"  FACTORY\n\n\n\n\n\n PRICE: 20 METAL", ImagePaths.BUTTON2,
+				ImagePaths.METAL_PRODUCER);
+
+		prices = new int[] { 5, 10, 20 }; // forest, gun, factory
 
 		// testSaving();
 		// testLoading();
@@ -273,7 +278,22 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		} else if (gunBuy.mouseIntersect(e.getX(), e.getY())) {
 			bType = "gun";
 		} else if (Board.SCENE == 2) {
-			BuildingManager.placeBuilding(e.getX(), e.getY(), bType);
+			System.out.println(BuildingManager.checkCoords(e.getX(), e.getY(),
+					playerIslandManager.getIsland().getBuildings()));
+			if (BuildingManager.checkCoords(e.getX(), e.getY(),
+					playerIslandManager.getIsland().getBuildings())) {
+				if (bType == "wood" && MM.checkValue("wood", prices[0])) {
+					MM.addResource("wood", -prices[0]);
+					BuildingManager.placeBuilding(e.getX(), e.getY(), bType);
+				} else if (bType == "metal"
+						&& MM.checkValue("metal", prices[2])) {
+					MM.addResource("metal", -prices[2]);
+					BuildingManager.placeBuilding(e.getX(), e.getY(), bType);
+				} else if (bType == "gun" && MM.checkValue("metal", prices[1])) {
+					MM.addResource("metal", -prices[1]);
+					BuildingManager.placeBuilding(e.getX(), e.getY(), bType);
+				}
+			}
 			e.consume();
 		}
 	}
@@ -332,7 +352,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		g.drawImage(b.getImage(), b.getX() - b.getWidth() / 2,
 				b.getY() - b.getHeight() / 2, null);
 
-		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 9));
 		drawString(g, b.getText(), b.getX() - 41, b.getY() - 40);
 
 		Sprite preview = new Sprite(b.getX(), b.getY(), b.getImageName());

@@ -14,13 +14,14 @@ public class MaterialsManager {
 	private static HashMap<String, Integer> materials = new HashMap<String, Integer>();
 	private static int DIST_TO_TOP = 20;
 	private static int SPACING = 20;
-	
+
 	public void Update(Graphics g) {
 		if (Board.SCENE == 1 || Board.SCENE == 2) {
 			int count = 0;
-			g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
 			for (String key : materials.keySet()) {
-				g.drawString(key.toUpperCase() + ": " + materials.get(key), 400, DIST_TO_TOP + SPACING * count);
+				g.drawString(key.toUpperCase() + ": " + materials.get(key),
+						900, DIST_TO_TOP + SPACING * count);
 				count++;
 			}
 		}
@@ -41,7 +42,7 @@ public class MaterialsManager {
 		res = res.toLowerCase();
 		materials.put(res, val);
 	}
-	
+
 	public void addResource(String res, Integer val) {
 		if (!materials.containsKey(res)) {
 			res = res.toLowerCase();
@@ -49,6 +50,13 @@ public class MaterialsManager {
 		} else {
 			materials.put(res, materials.get(res) + val);
 		}
+	}
+
+	public boolean checkValue(String res, Integer price) {
+		if (materials.containsKey(res)) {
+			return materials.get(res) - price >= 0;
+		}
+		return false;
 	}
 
 	public void saveMaterials() {

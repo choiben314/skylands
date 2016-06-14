@@ -21,20 +21,16 @@ public class BuildingManager {
 		int sy = Island.BUILDING_POS[sIndex][1];
 
 		if (type.equals("wood") || type.equals("metal")) {
-			if (checkCoords(sx, sy, pim.getIsland().getBuildings())) {
-				String imagePath = ImagePaths.WOOD_PRODUCER;
-				if (type.equals("metal")) {
-					imagePath = ImagePaths.METAL_PRODUCER;
-				}
-				pim.getIsland().addBuilding(
-						new ResourceProducer(sx, sy, imagePath,
-								type));
+			String imagePath = ImagePaths.WOOD_PRODUCER;
+			if (type.equals("metal")) {
+				imagePath = ImagePaths.METAL_PRODUCER;
 			}
+			pim.getIsland().addBuilding(
+					new ResourceProducer(sx, sy, imagePath, type));
+
 		} else if (type.equals("gun")) {
-			if (checkCoords(sx, sy, pim.getIsland().getBuildings())) {
-				pim.getIsland().addBuilding(
-						new Gun(sx, sy, ImagePaths.GUN1_42x42, 10));
-			}
+			pim.getIsland().addBuilding(
+					new Gun(sx, sy, ImagePaths.GUN1_42x42, 10));
 		}
 	}
 
@@ -70,11 +66,9 @@ public class BuildingManager {
 
 			if (type.equals("wood")) {
 				ip = ImagePaths.WOOD_PRODUCER_TRANSPARENT;
-			}
-			else if (type.equals("metal")) {
+			} else if (type.equals("metal")) {
 				ip = ImagePaths.METAL_PRODUCER_TRANSPARENT;
-			}
-			else if (type.equals("gun")) {
+			} else if (type.equals("gun")) {
 				ip = ImagePaths.GUN1_TRANSPARENT_42x42;
 			}
 
@@ -94,9 +88,12 @@ public class BuildingManager {
 		}
 	}
 
-	private static boolean checkCoords(int x, int y, ArrayList<Building> bList) {
+	public static boolean checkCoords(int x, int y, ArrayList<Building> bList) {
+		int bx = Island.BUILDING_POS[getClosest(x, y)][0];
+		int by = Island.BUILDING_POS[getClosest(x, y)][1];
+		
 		for (Building b : bList) {
-			if (b.getX() == x && b.getY() == y) {
+			if (b.getX() == bx && b.getY() == by) {
 				return false;
 			}
 		}
