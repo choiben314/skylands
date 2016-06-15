@@ -31,7 +31,7 @@ public class PlayerIslandManager {
 	
 	public void Update(Graphics g, EnemyIslandManager eim, boolean moveIsland, boolean moveUp) {
 		if (Board.SCENE == 0) {
-			// start screen
+			g.drawImage(new ImageIcon(ImagePaths.START_SCREEN).getImage(), 0, 0, null);
 		} else if (Board.SCENE == 1) {
 			g.drawImage(new ImageIcon(ImagePaths.BACKGROUND).getImage(), 0, 0, null);
 			Island.LARGE = false;

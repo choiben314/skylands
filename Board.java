@@ -281,8 +281,6 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		} else if (gunBuy.mouseIntersect(e.getX(), e.getY())) {
 			bType = "gun";
 		} else if (Board.SCENE == 2) {
-			System.out.println(BuildingManager.checkCoords(e.getX(), e.getY(),
-					playerIslandManager.getIsland().getBuildings()));
 			if (BuildingManager.checkCoords(e.getX(), e.getY(),
 					playerIslandManager.getIsland().getBuildings())) {
 				if (bType == "wood" && MM.checkValue("wood", prices[0])) {

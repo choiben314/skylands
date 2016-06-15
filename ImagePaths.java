@@ -34,6 +34,8 @@ public class ImagePaths {
 	public static final String BUTTON2 = "Images/UI/Button2_90x90.png";
 
 	public static final String ITEM_DROP = "Images/Island/ItemDrop_80x84.png";
+	
+	public static final String START_SCREEN = "Images/UI/Skylands_Start_Screen.png";
 
 	/*
 	 * Enemy Images
