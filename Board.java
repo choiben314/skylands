@@ -9,7 +9,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -44,6 +43,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	private BuildingManager buildingManager;
 	private String bType;
 
+	private Button startButton;
+
 	private Button changeScene;
 	private int[] origIslandCoord;
 
@@ -67,8 +68,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		BOARD = this;
 
 		MM = new MaterialsManager();
-		MM.setResource("wood", 1200);
-		MM.setResource("metal", 1200);
+		MM.setResource("wood", 200);
+		MM.setResource("metal", 150);
 		DM = new DropManager();
 
 		SCENE = 0;
@@ -83,6 +84,9 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		buildingManager = new BuildingManager(playerIslandManager);
 		bType = "wood";
 
+		startButton = new Button(Board.FRAME_WIDTH / 2, 300, "   START",
+				ImagePaths.BUTTON1, null);
+
 		changeScene = new Button(60, 30, "   BUILD", ImagePaths.BUTTON1, null);
 		origIslandCoord = new int[] { 200, 300 };
 
@@ -94,7 +98,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		gunBuy = new Button(300, 60, "  GUN\n\n\n\n\n PRICE:" + prices[1]
 				+ " METAL", ImagePaths.BUTTON2, ImagePaths.GUN1_42x42);
 		factoryBuy = new Button(420, 60, "  FACTORY\n\n\n\n\n PRICE: "
-				+ prices[2] + " WOOD\n           " + prices[3] + " METAL",
+				+ prices[2] + " WOOD\n             " + prices[3] + " METAL",
 				ImagePaths.BUTTON2, ImagePaths.METAL_PRODUCER);
 
 		// testSaving();
@@ -151,6 +155,13 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 			drawStaticButton(g, changeScene);
 		} else if (Board.SCENE == 1) {
 			changeScene.setText("   BUILD");
+		} else if (Board.SCENE == 0) {
+			drawStaticButton(g, startButton);
+			drawString(g, "Controls: W, S to move.",
+					Board.FRAME_WIDTH / 2 - 55, 400);
+		}
+
+		if (Board.SCENE != 0) {
 			drawStaticButton(g, changeScene);
 		}
 
@@ -280,6 +291,12 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 			bType = "metal";
 		} else if (gunBuy.mouseIntersect(e.getX(), e.getY())) {
 			bType = "gun";
+		} else if (Board.SCENE == 0) {
+			if (startButton.mouseIntersect(e.getX(), e.getY())) {
+				Board.SCENE = 1;
+				playerIslandManager.getIsland().getBody().setX(200);
+				playerIslandManager.getIsland().getBody().setY(300);
+			}
 		} else if (Board.SCENE == 2) {
 			if (BuildingManager.checkCoords(e.getX(), e.getY(),
 					playerIslandManager.getIsland().getBuildings())) {
@@ -296,8 +313,8 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 					BuildingManager.placeBuilding(e.getX(), e.getY(), bType);
 				}
 			}
-			e.consume();
 		}
+		e.consume();
 	}
 
 	public void mouseMoved(MouseEvent e) {
@@ -355,7 +372,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 				b.getY() - b.getHeight() / 2, null);
 
 		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 9));
-		drawString(g, b.getText(), b.getX() - 41, b.getY() - 40);
+		drawString(g, b.getText(), b.getX() - 41, b.getY() - 44);
 
 		Sprite preview = new Sprite(b.getX(), b.getY(), b.getImageName());
 

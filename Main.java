@@ -22,6 +22,7 @@ public class Main extends JFrame {
 		long oldTime = System.currentTimeMillis();
 		System.out.println(System.currentTimeMillis());
 
+		new AudioPlayer("Images/sky_maneuvers.wav");
 		while (true) {
 			if (System.currentTimeMillis() - oldTime > 5) {
 				oldTime = System.currentTimeMillis();
