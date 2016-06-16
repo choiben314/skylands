@@ -36,6 +36,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 	 */
 	public static int SCENE;
 	public static double[] MOUSE_COORDS;
+	public static int SCORE;
 
 	private Timer timer;
 	private Color turquoise;
@@ -76,6 +77,7 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 		MOUSE_COORDS = new double[] { 0.0, 0.0 };
 		timer = new Timer(1000, this);
 		timer.start();
+		SCORE = 0;
 
 		turquoise = new Color(0, 255, 255);
 		playerIslandManager = new PlayerIslandManager();
