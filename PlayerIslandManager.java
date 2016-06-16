@@ -41,6 +41,8 @@ public class PlayerIslandManager {
 				movePlayerIslandDown();
 			updateBullets(g, eim);
 			playerIsland.Update(g);
+			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
+			g.drawString("Score: " + Board.SCORE, 750, 450);
 		} else if (Board.SCENE == 2) {
 			Island.LARGE = true;
 			playerIsland.Update(g);
@@ -96,7 +98,8 @@ public class PlayerIslandManager {
 					if (b.collision((Sprite)e.getBody())) {
 						e.getBody().takeDamage(10);
 						if (e.getBody().checkDead()) {
-							System.out.println("Enemy defeated");
+//							System.out.println("Enemy defeated");
+							Board.SCORE++;
 							Board.DM.addDrop(e.getBody().getX(), e.getBody().getY());
 							eim.getEnemyIslands().remove(e);
 						}
