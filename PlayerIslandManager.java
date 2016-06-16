@@ -41,12 +41,11 @@ public class PlayerIslandManager {
 				movePlayerIslandDown();
 			updateBullets(g, eim);
 			playerIsland.Update(g);
-			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
-			g.drawString("Score: " + Board.SCORE, 750, 450);
+			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
+			g.drawString("Score: " + Board.SCORE, 125, 40);
 		} else if (Board.SCENE == 2) {
-			Island.LARGE = true;
-			playerIsland.Update(g);
-		} else if (Board.SCENE == 2) {
+			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+			g.drawString("Press 'd' to delete closest building.", 475, 30);
 			Island.LARGE = true;
 			playerIsland.Update(g);
 		} else if (Board.SCENE == 3) {

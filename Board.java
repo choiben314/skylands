@@ -216,8 +216,10 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 			if (key == KeyEvent.VK_D) {
 				ArrayList<Building> b = playerIslandManager.getIsland()
 						.getBuildings();
-				b.remove(BuildingManager.getClosestBuilding(
-						Board.MOUSE_COORDS[0], Board.MOUSE_COORDS[1]));
+				if (!b.isEmpty()) {
+					b.remove(BuildingManager.getClosestBuilding(
+							Board.MOUSE_COORDS[0], Board.MOUSE_COORDS[1]));
+				}
 			}
 		}
 		e.consume();
