@@ -1,3 +1,10 @@
+/*    Your name: Justin Li & Ben Choi :)
+    Class block:  H               Date: 6/16/26
+    Lab: Final
+    Title: Quarter 4 Project
+    Purpose: Final project. Learn graphics library and version control.
+*/
+
 import javax.swing.*;
 
 // cd /Volumes/yog2018-2/18choi9/APCompSci/Skylands
