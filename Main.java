@@ -20,7 +20,7 @@ public class Main extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		long oldTime = System.currentTimeMillis();
-		System.out.println(System.currentTimeMillis());
+		//System.out.println(System.currentTimeMillis());
 
 		new AudioPlayer("Images/sky_maneuvers.wav");
 		while (true) {

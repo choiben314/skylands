@@ -58,6 +58,29 @@ public class BuildingManager {
 		return shortestIndex;
 	}
 
+	public static int getClosestBuilding(double mx, double my) {
+
+		int bx = pim.getIsland().getBody().getX();
+		int by = pim.getIsland().getBody().getY();
+
+		int shortestIndex = 0;
+		double shortestDist = 100000;
+
+		ArrayList<Building> buildings = pim.getIsland().getBuildings();
+
+		for (int i = 0; i < buildings.size(); i++) {
+			Building b = buildings.get(i);
+			double distToBuilding = Math.sqrt(Math.pow((mx - (b.getX() + bx)), 2)
+					+ Math.pow((my - (b.getY() + by)), 2));
+			if (distToBuilding < shortestDist) {
+				shortestIndex = i;
+				shortestDist = distToBuilding;
+			}
+		}
+
+		return shortestIndex;
+	}
+
 	public void drawTransparent(Graphics g, String type) {
 		if (Board.SCENE == 2) {
 			int sIndex = getClosest(Board.MOUSE_COORDS[0],
@@ -91,7 +114,7 @@ public class BuildingManager {
 	public static boolean checkCoords(int x, int y, ArrayList<Building> bList) {
 		int bx = Island.BUILDING_POS[getClosest(x, y)][0];
 		int by = Island.BUILDING_POS[getClosest(x, y)][1];
-		
+
 		for (Building b : bList) {
 			if (b.getX() == bx && b.getY() == by) {
 				return false;

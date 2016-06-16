@@ -157,8 +157,10 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 			changeScene.setText("   BUILD");
 		} else if (Board.SCENE == 0) {
 			drawStaticButton(g, startButton);
-			drawString(g, "Controls: W, S to move.",
-					Board.FRAME_WIDTH / 2 - 55, 400);
+			drawString(
+					g,
+					"      Controls: W, S to move.\nMouse to aim, space to shoot.",
+					Board.FRAME_WIDTH / 2 - 75, 400);
 		}
 
 		if (Board.SCENE != 0) {
@@ -208,24 +210,12 @@ public class Board extends JPanel implements ActionListener, KeyListener,
 				moveIsland = true;
 				moveUp = false;
 			}
-		}
-		// else if (SCENE == 2) {
-		// if (key == KeyEvent.VK_J) {
-		// bType = "wood";
-		// } else if (key == KeyEvent.VK_K) {
-		// bType = "gun";
-		// }
-		// // if (key == KeyEvent.VK_B) {
-		// // ResourceProducer rNew = new
-		// // ResourceProducer(Island.FIRST_BUILDING_POS[0] + 42 * (k++),
-		// // Island.FIRST_BUILDING_POS[1], ImagePaths.BUILDING_TEST, "wood");
-		// // playerIslandManager.getIsland().addBuilding(rNew);
-		// // }
-		if (key == KeyEvent.VK_D) {
-			ArrayList<Building> b = playerIslandManager.getIsland()
-					.getBuildings();
-			if (b.size() > 0) {
-				b.remove(b.size() - 1);
+		} else if (SCENE == 2) {
+			if (key == KeyEvent.VK_D) {
+				ArrayList<Building> b = playerIslandManager.getIsland()
+						.getBuildings();
+				b.remove(BuildingManager.getClosestBuilding(
+						Board.MOUSE_COORDS[0], Board.MOUSE_COORDS[1]));
 			}
 		}
 		e.consume();

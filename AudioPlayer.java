@@ -17,7 +17,6 @@ public class AudioPlayer extends JFrame {
 
 	public AudioPlayer(String name) {
 		audioFileName = name;
-		System.out.println(name);
 		playAudio();
 	}
 
@@ -26,7 +25,6 @@ public class AudioPlayer extends JFrame {
 			File soundFile = new File(audioFileName);
 			audioInputStream = AudioSystem.getAudioInputStream(soundFile);
 			audioFormat = audioInputStream.getFormat();
-			System.out.println(audioFormat);
 			DataLine.Info dataLineInfo = new DataLine.Info(
 					SourceDataLine.class, audioFormat);
 			sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
